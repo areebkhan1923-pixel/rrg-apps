@@ -2,7 +2,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="RRG CODEX"><meta name="application-name" content="RRG CODEX">
 <link rel="apple-touch-icon" href="codex-icon.png"><link rel="icon" href="codex-icon.png">
-<style>:root{padding:0!important}#bg{height:100lvh!important}#app{padding-top:env(safe-area-inset-top,0px)}.col{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))!important}.panel{top:calc(var(--sys-h) + env(safe-area-inset-top,0px))!important}.panel-b{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))!important}img{max-width:100%}</style>
+<style>:root{padding:0!important}#bg{height:100lvh!important}#app{padding-top:env(safe-area-inset-top,0px)}.col{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))!important}.panel{top:calc(var(--sys-h) + env(safe-area-inset-top,0px))!important}.panel-b{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))!important}img{max-width:100%}.syl{margin:0;padding-left:20px;display:grid;gap:9px;font-size:13px;line-height:1.45;color:var(--dim)}.syl a{color:#fff;font-weight:700;text-decoration:underline}</style>
 <title>RRG CODEX</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -451,6 +451,51 @@ select.in option{background:#10203a}
 .col{padding-bottom:110px}
 
 @media(max-width:430px){.logo{display:none}}
+/* ===== PS3 extras: focus, hints, screensaver, power, safe mode, level ===== */
+body.nav-on .gpf{position:relative;outline:none;background-color:rgba(255,255,255,.13)!important;box-shadow:0 0 0 2px rgba(255,255,255,.92),0 0 24px 3px var(--tglow);border-radius:12px;animation:gpPulse 1.8s ease-in-out infinite;z-index:1}
+@keyframes gpPulse{50%{box-shadow:0 0 0 2px rgba(255,255,255,.6),0 0 34px 8px var(--tglow)}}
+body.nav-on .fab{opacity:0;pointer-events:none}
+.hints{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:56;display:flex;gap:14px;align-items:center;padding:7px 14px;border-radius:999px;background:rgba(0,0,0,.38);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);font-size:12px;color:rgba(255,255,255,.9);white-space:nowrap;pointer-events:none;max-width:calc(100vw - 24px);overflow:hidden}
+.hints span{display:flex;align-items:center;gap:5px}.hints svg{width:17px;height:17px;flex:none}
+kbd{display:inline-block;min-width:20px;padding:1px 5px;border-radius:5px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);font:600 11px/16px system-ui,sans-serif;text-align:center;margin-right:3px;color:#fff}
+.padmap>div>span:first-child{display:flex;align-items:center;gap:6px}.padmap svg{width:18px;height:18px}
+#app{transition:opacity 1.2s ease}
+body.ss #app,body.ss .hints,body.ss #saving{opacity:0!important;pointer-events:none}
+body.ss .fab{opacity:0!important;pointer-events:none;transition:opacity 1.2s}
+#bg{transition:filter 1.5s ease}body.ss #bg{filter:brightness(.6)}
+.ssv{position:fixed;inset:0;z-index:58;display:flex;flex-direction:column;justify-content:flex-end;padding:0 28px calc(60px + env(safe-area-inset-bottom,0px));opacity:0;pointer-events:none;transition:opacity 1.6s ease;color:#fff}
+body.ss .ssv{opacity:1}
+.ssv-t{font-size:clamp(64px,21vw,150px);font-weight:200;letter-spacing:-.02em;line-height:1;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.ssv-t small{font-size:.26em;font-weight:400;margin-left:10px;letter-spacing:.06em}
+.ssv-d{font-size:16px;opacity:.8;margin-top:10px}
+.ssv-r{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:15px;opacity:.92}
+.psoff{position:fixed;inset:0;z-index:400;background:#000;opacity:0;transition:opacity 1.3s ease;display:grid;place-items:center;cursor:pointer}
+.psoff.go{opacity:1}.psoff.out{opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.psoff-t{color:rgba(255,255,255,.3);font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:0;transition:opacity 1s 2.4s}
+.psoff.go .psoff-t{opacity:1}.psoff.on .psoff-t{opacity:0;transition:opacity .3s}
+.psoff-led{position:absolute;right:calc(26px + env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));width:7px;height:7px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 10px 3px rgba(255,43,43,.65);opacity:0;transition:opacity .5s 1.6s}
+.psoff.go .psoff-led{opacity:1}.psoff.on .psoff-led{background:#38ff6a;box-shadow:0 0 14px 4px rgba(56,255,106,.7)}
+.safe{position:fixed;inset:0;z-index:390;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+.safe-in{width:min(460px,100%)}.safe-h{font-size:26px;margin-bottom:6px}.safe p{color:#b8b8b8;font-size:14px;margin:0 0 18px}
+.safe-l{display:grid;gap:4px}
+.safe-l button{all:unset;display:block;cursor:pointer;padding:11px 14px;font-size:16px;border-radius:2px;color:#fff}
+.safe-l button:hover,body.nav-on .safe-l button.gpf{background:#1d4fd6!important;box-shadow:none;animation:none;border-radius:2px}
+.safe .safe-msg{margin-top:18px;color:#fff;min-height:20px}
+.boot.safe-armed .boot-sub{color:#ffd76a}
+.lvl-card{display:flex;gap:14px;align-items:center;padding:14px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);margin-bottom:14px}
+.lvl-star{position:relative;width:56px;height:56px;flex:none}.lvl-star svg{width:100%;height:100%;filter:drop-shadow(0 2px 8px rgba(241,207,98,.45))}
+.lvl-star b{position:absolute;inset:4px 0 0;display:grid;place-items:center;font-size:16px;color:#3a2c05}
+.lvl-main{flex:1;min-width:0}.lvl-t{display:flex;justify-content:space-between;font-weight:700;font-size:16px}.lvl-t span{font-weight:500;color:var(--dim);font-size:13px}
+.lvl-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.15);margin:8px 0;overflow:hidden}.lvl-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffffff,#d9e6ff);border-radius:3px}
+.lvl-c{display:flex;gap:12px;font-size:12.5px;color:var(--dim);align-items:center}.lvl-c span{display:flex;align-items:center;gap:3px}.lvl-c .i{width:16px;height:16px}.lvl-c .lvl-n{margin-left:auto}
+.psup p{margin:0}.psbar{height:8px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden;margin:14px 0}
+.psbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#a9d3ff,#fff);transition:width .25s}
+.psbar.ind i{width:35%;animation:psInd 1.1s ease-in-out infinite}@keyframes psInd{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
+.cheat{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.cheat button{height:44px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:17px;font-weight:700;cursor:pointer}
+.cheat button:active{background:rgba(255,255,255,.25)}
+#clock,#clockface{cursor:pointer}
+body.nav-on .hs .gpf,body.nav-on .tabs .gpf,body.nav-on .chips .gpf{box-shadow:inset 0 0 0 2px #fff,0 0 12px var(--tglow);animation:none}
 @font-face{font-family:'PhatBoy Slim';src:url(data:font/otf;base64,T1RUTwAJAIAAAwAQQ0ZGIKQQqFYAABlgAAAtyk9TLzJpTAxSAAABAAAAAGBjbWFw4+EBIgAAFhAAAAMuaGVhZPoZs2gAAACcAAAANmhoZWEJ/Qe6AAAA1AAAACRobXR4qHH9uAAARywAAALIbWF4cACyUAAAAAD4AAAABm5hbWX7gvmBAAABYAAAFK9wb3N0/7gAMgAAGUAAAAAgAAEAAAACAACzc6DyXw889QADA+gAAAAAyf63qQAAAADJ/rep/5n/QgdrA/QAAAADAAIAAAAAAAAAAQAAAu7/BgAJCAH/mQAAB2sAAQAAAAAAAAAAAAAAAAAAALIAAFAAALIAAAACA9IBkAAFAgACvAKKAAAAjAK8AooAAAHdADIA+ggPAgAAAAAAAAAAAIAAACcAAAAKAAAAAAAAAABUclRnAEAAICEiAu7/BgAAA/QAvgAAAAEAAAAAAfQCvAAAACAAAAAAABoBPgABAAAAAAAAABQAAAABAAAAAAABAAwAFAABAAAAAAACAAcAIAABAAAAAAADAB4AJwABAAAAAAAEAAwAFAABAAAAAAAFABYARQABAAAAAAAGAAsAWwABAAAAAAAHACoAZgABAAAAAAAIAAoAkAABAAAAAAAKABQAAAABAAAAAAALABsAmgABAAAAAAAMABsAmgABAAAAAAANBcYAtQADAAEECQAAACgGewADAAEECQABABgGowADAAEECQACAA4GuwADAAEECQADADwGyQADAAEECQAEABYHBQADAAEECQAFACwHGwADAAEECQAGABYHBQADAAEECQAHAFQHRwADAAEECQAIABQHmwADAAEECQAKACgGewADAAEECQALADYHrwADAAEECQAMADYHrwADAAEECQANC4wH5Xd3dy50cmFjZXJ0b25nLmNvLnVrUGhhdEJveSBTbGltUmVndWxhclRyYWNlclRvbmc6IFBoYXRCb3kgU2xpbTogMjAxMVZlcnNpb24gMi4wIC0gTWF5IDIwMTFQaGF0Qm95U2xpbVBoYXRCb3kgU2xpbSBpcyBhIHRyYWRlbWFyayBvZiBUcmFjZXJUb25nLlRyYWNlclRvbmdodHRwOi8vd3d3LnRyYWNlcnRvbmcuY28udWtBbGwgZm9udHMgY29weXJpZ2h0IFRyYWNlclRvbmcvV2hvQW1JDQpDb250cmlidXRpb25zIHRvIHRoZSBhcnQgb2YgcGFnZSBkZWNvcmF0aW9uDQoNClRoZXNlIGZvbnRzIGFyZSBmcmVld2FyZSBmb3IgaW5kZXBlbmRlbnQgY3JlYXRpb24gYW5kIG5vbi1wcm9maXQgdXNlLiBUaGlzIGV4Y2x1ZGVzIHVzZSBieSAibWFpbnN0cmVhbSIgcHVibGlzaGVycyB3aXRob3V0IGEgbGljZW5zZSBmZWUuIFVzZSBieSBhICJtYWluc3RyZWFtIiBwdWJsaXNoZXIgKG9yIGl0cyBlbXBsb3llZSkgYW5kIHVzZSBmb3IgY29tbWVyY2lhbCBwcm9kdWN0aW9uIChlLmcuIG1hZ2F6aW5lIGFkcywgbWVyY2hhbmRpc2UgbGFiZWxzKSByZXF1aXJlcyBhIGxpY2Vuc2UgZmVlIGJlIHBhaWQgdG8gdGhlIGRlc2lnbmVyLCBQYXVsIFJlaWQgKFRyYWNlclRvbmcpLg0KIA0KRG9uYXRpb25zIGNhbiBiZSBtYWRlIHZpYSBQYXlQYWwgb24gbXkgc2l0ZSBhdDoJIGh0dHA6Ly93d3cudHJhY2VydG9uZy5jby51ay90dGYNCkFkZGlpb25hbCBpbmZvIGNhbiBiZSBmb3VuZCBpbiB0aGUgRkEgcGFnZSBoZXJlOiBodHRwOi8vd3d3LnRyYWNlcnRvbmcuY28udWsvdHRmL2ZhcQ0KDQpUaGVzZSBmb250cyBtdXN0IE5PVCBiZSByZWRpc3RyaWJ1dGVkIHdpdGhvdXQgdGhlIGF1dGhvcidzIHBlcm1pc3Npb24gYW5kIG11c3QgQUxXQVlTIGluY2x1ZGUgdGhpcyB0ZXh0IGZpbGUgaW4gdGhlIC56aXAgb3IgLnJhciBmaWxlLg0KDQoNCiBQZXJzb25hbCB1c2U6IERvbmF0aW9ud2FyZTogozEgR0JQIGlmIHlvdSBsaWtlIHRoZSBmb250IGFuZCB1c2UgaXQgOikNCiBUaGlzIHdpbGwgZW5jb3VyYWdlIG1lIHRvIGNvbnRpbnVlIHRvIGNyZWF0ZSBuZXcgZm9udHMNCg0KIENvbW1lcmNpYWwgVXNlOg0KIFNtYWxsIENvbXBhbnkgKDwyNSBlbXBsb3llZXMpOiAtIKMxNS0yNSBVSyBTdGVybGluZw0KIChhbnl0aGluZyBpbiB0aGlzIHJhbmdlIGlzIGFjY2VwdGFibGUpDQogDQogTWVkaXVtIENvbXBhbnkgKDI1LTUwIGVtcGxveWVlcyk6IC0gozUwIFVLIFN0ZXJsaW5nDQogDQogTGFyZ2UgQ29tcGFueSAoPjUwIGVtcGxveWVlcyk6IC0gozEwMCBVSyBTdGVybGluZw0KIA0KIEVudGVycHJpc2UgTGV2ZWwgKE11bHRpbmF0aW9uYWwgQ29tcGFuaWVzKSAtIKMxNTAgVUsgU3RlcmxpbmcNCg0KDQpUcmFjZXJUb25nL1dob0FtSS9QYXVsIFJlaWQgbWFrZXMgbm8gZ3VhcmFudGVlcyBhYm91dCB0aGVzZSBmb250IGZpbGVzLCB0aGUgY29tcGxldGVuZXNzIG9mIGNoYXJhY3RlciBzZXRzLCBvciBzYWZldHkgb2YgdGhlc2UgZmlsZXMgb24geW91ciBjb21wdXRlci4gQnkgaW5zdGFsbGluZyB0aGVzZSBmb250cyBvbiB5b3VyIHN5c3RlbSwgeW91IHByb3ZlIHRoYXQgeW91IGhhdmUgcmVhZCBhbmQgdW5kZXJzdGFuZCB0aGUgYWJvdmUuDQoNCkVuam95IQ0KDQpGb3IgbW9yZSBvcmlnaW5hbCBmb250cyB2aXNpdC4NCnd3dy50cmFjZXJ0b25nLmNvLnVrL3R0ZgB3AHcAdwAuAHQAcgBhAGMAZQByAHQAbwBuAGcALgBjAG8ALgB1AGsAUABoAGEAdABCAG8AeQAgAFMAbABpAG0AUgBlAGcAdQBsAGEAcgBUAHIAYQBjAGUAcgBUAG8AbgBnADoAIABQAGgAYQB0AEIAbwB5ACAAUwBsAGkAbQA6ACAAMgAwADEAMQBQAGgAYQB0AEIAbwB5AFMAbABpAG0AVgBlAHIAcwBpAG8AbgAgADIALgAwACAALQAgAE0AYQB5ACAAMgAwADEAMQBQAGgAYQB0AEIAbwB5ACAAUwBsAGkAbQAgAGkAcwAgAGEAIAB0AHIAYQBkAGUAbQBhAHIAawAgAG8AZgAgAFQAcgBhAGMAZQByAFQAbwBuAGcALgBUAHIAYQBjAGUAcgBUAG8AbgBnAGgAdAB0AHAAOgAvAC8AdwB3AHcALgB0AHIAYQBjAGUAcgB0AG8AbgBnAC4AYwBvAC4AdQBrAEEAbABsACAAZgBvAG4AdABzACAAYwBvAHAAeQByAGkAZwBoAHQAIABUAHIAYQBjAGUAcgBUAG8AbgBnAC8AVwBoAG8AQQBtAEkADQAKAEMAbwBuAHQAcgBpAGIAdQB0AGkAbwBuAHMAIAB0AG8AIAB0AGgAZQAgAGEAcgB0ACAAbwBmACAAcABhAGcAZQAgAGQAZQBjAG8AcgBhAHQAaQBvAG4ADQAKAA0ACgBUAGgAZQBzAGUAIABmAG8AbgB0AHMAIABhAHIAZQAgAGYAcgBlAGUAdwBhAHIAZQAgAGYAbwByACAAaQBuAGQAZQBwAGUAbgBkAGUAbgB0ACAAYwByAGUAYQB0AGkAbwBuACAAYQBuAGQAIABuAG8AbgAtAHAAcgBvAGYAaQB0ACAAdQBzAGUALgAgAFQAaABpAHMAIABlAHgAYwBsAHUAZABlAHMAIAB1AHMAZQAgAGIAeQAgACIAbQBhAGkAbgBzAHQAcgBlAGEAbQAiACAAcAB1AGIAbABpAHMAaABlAHIAcwAgAHcAaQB0AGgAbwB1AHQAIABhACAAbABpAGMAZQBuAHMAZQAgAGYAZQBlAC4AIABVAHMAZQAgAGIAeQAgAGEAIAAiAG0AYQBpAG4AcwB0AHIAZQBhAG0AIgAgAHAAdQBiAGwAaQBzAGgAZQByACAAKABvAHIAIABpAHQAcwAgAGUAbQBwAGwAbwB5AGUAZQApACAAYQBuAGQAIAB1AHMAZQAgAGYAbwByACAAYwBvAG0AbQBlAHIAYwBpAGEAbAAgAHAAcgBvAGQAdQBjAHQAaQBvAG4AIAAoAGUALgBnAC4AIABtAGEAZwBhAHoAaQBuAGUAIABhAGQAcwAsACAAbQBlAHIAYwBoAGEAbgBkAGkAcwBlACAAbABhAGIAZQBsAHMAKQAgAHIAZQBxAHUAaQByAGUAcwAgAGEAIABsAGkAYwBlAG4AcwBlACAAZgBlAGUAIABiAGUAIABwAGEAaQBkACAAdABvACAAdABoAGUAIABkAGUAcwBpAGcAbgBlAHIALAAgAFAAYQB1AGwAIABSAGUAaQBkACAAKABUAHIAYQBjAGUAcgBUAG8AbgBnACkALgANAAoAIAANAAoARABvAG4AYQB0AGkAbwBuAHMAIABjAGEAbgAgAGIAZQAgAG0AYQBkAGUAIAB2AGkAYQAgAFAAYQB5AFAAYQBsACAAbwBuACAAbQB5ACAAcwBpAHQAZQAgAGEAdAA6AAkAIABoAHQAdABwADoALwAvAHcAdwB3AC4AdAByAGEAYwBlAHIAdABvAG4AZwAuAGMAbwAuAHUAawAvAHQAdABmAA0ACgBBAGQAZABpAGkAbwBuAGEAbAAgAGkAbgBmAG8AIABjAGEAbgAgAGIAZQAgAGYAbwB1AG4AZAAgAGkAbgAgAHQAaABlACAARgBBACAAcABhAGcAZQAgAGgAZQByAGUAOgAgAGgAdAB0AHAAOgAvAC8AdwB3AHcALgB0AHIAYQBjAGUAcgB0AG8AbgBnAC4AYwBvAC4AdQBrAC8AdAB0AGYALwBmAGEAcQANAAoADQAKAFQAaABlAHMAZQAgAGYAbwBuAHQAcwAgAG0AdQBzAHQAIABOAE8AVAAgAGIAZQAgAHIAZQBkAGkAcwB0AHIAaQBiAHUAdABlAGQAIAB3AGkAdABoAG8AdQB0ACAAdABoAGUAIABhAHUAdABoAG8AcgAnAHMAIABwAGUAcgBtAGkAcwBzAGkAbwBuACAAYQBuAGQAIABtAHUAcwB0ACAAQQBMAFcAQQBZAFMAIABpAG4AYwBsAHUAZABlACAAdABoAGkAcwAgAHQAZQB4AHQAIABmAGkAbABlACAAaQBuACAAdABoAGUAIAAuAHoAaQBwACAAbwByACAALgByAGEAcgAgAGYAaQBsAGUALgANAAoADQAKAA0ACgAgAFAAZQByAHMAbwBuAGEAbAAgAHUAcwBlADoAIABEAG8AbgBhAHQAaQBvAG4AdwBhAHIAZQA6ACAAowAxACAARwBCAFAAIABpAGYAIAB5AG8AdQAgAGwAaQBrAGUAIAB0AGgAZQAgAGYAbwBuAHQAIABhAG4AZAAgAHUAcwBlACAAaQB0ACAAOgApAA0ACgAgAFQAaABpAHMAIAB3AGkAbABsACAAZQBuAGMAbwB1AHIAYQBnAGUAIABtAGUAIAB0AG8AIABjAG8AbgB0AGkAbgB1AGUAIAB0AG8AIABjAHIAZQBhAHQAZQAgAG4AZQB3ACAAZgBvAG4AdABzAA0ACgANAAoAIABDAG8AbQBtAGUAcgBjAGkAYQBsACAAVQBzAGUAOgANAAoAIABTAG0AYQBsAGwAIABDAG8AbQBwAGEAbgB5ACAAKAA8ADIANQAgAGUAbQBwAGwAbwB5AGUAZQBzACkAOgAgAC0AIACjADEANQAtADIANQAgAFUASwAgAFMAdABlAHIAbABpAG4AZwANAAoAIAAoAGEAbgB5AHQAaABpAG4AZwAgAGkAbgAgAHQAaABpAHMAIAByAGEAbgBnAGUAIABpAHMAIABhAGMAYwBlAHAAdABhAGIAbABlACkADQAKACAADQAKACAATQBlAGQAaQB1AG0AIABDAG8AbQBwAGEAbgB5ACAAKAAyADUALQA1ADAAIABlAG0AcABsAG8AeQBlAGUAcwApADoAIAAtACAAowA1ADAAIABVAEsAIABTAHQAZQByAGwAaQBuAGcADQAKACAADQAKACAATABhAHIAZwBlACAAQwBvAG0AcABhAG4AeQAgACgAPgA1ADAAIABlAG0AcABsAG8AeQBlAGUAcwApADoAIAAtACAAowAxADAAMAAgAFUASwAgAFMAdABlAHIAbABpAG4AZwANAAoAIAANAAoAIABFAG4AdABlAHIAcAByAGkAcwBlACAATABlAHYAZQBsACAAKABNAHUAbAB0AGkAbgBhAHQAaQBvAG4AYQBsACAAQwBvAG0AcABhAG4AaQBlAHMAKQAgAC0AIACjADEANQAwACAAVQBLACAAUwB0AGUAcgBsAGkAbgBnAA0ACgANAAoADQAKAFQAcgBhAGMAZQByAFQAbwBuAGcALwBXAGgAbwBBAG0ASQAvAFAAYQB1AGwAIABSAGUAaQBkACAAbQBhAGsAZQBzACAAbgBvACAAZwB1AGEAcgBhAG4AdABlAGUAcwAgAGEAYgBvAHUAdAAgAHQAaABlAHMAZQAgAGYAbwBuAHQAIABmAGkAbABlAHMALAAgAHQAaABlACAAYwBvAG0AcABsAGUAdABlAG4AZQBzAHMAIABvAGYAIABjAGgAYQByAGEAYwB0AGUAcgAgAHMAZQB0AHMALAAgAG8AcgAgAHMAYQBmAGUAdAB5ACAAbwBmACAAdABoAGUAcwBlACAAZgBpAGwAZQBzACAAbwBuACAAeQBvAHUAcgAgAGMAbwBtAHAAdQB0AGUAcgAuACAAQgB5ACAAaQBuAHMAdABhAGwAbABpAG4AZwAgAHQAaABlAHMAZQAgAGYAbwBuAHQAcwAgAG8AbgAgAHkAbwB1AHIAIABzAHkAcwB0AGUAbQAsACAA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qvudoxVZCqNzBhOqqqq+ulWqo6OjonN0igoG+z0Wo3NzBjsKc7uZB4sHWQqtigoH94ZzFXIGYQpzc3Kko6JccgpapLwGjge4W6MHE6qqqr66paqjo6SicnQGWQpzcwYTqpVW3rqVpoorFXNyo6QG9237zxWipHRyBvs++yQVc6SjonOkW1uUCgc7CnRypKShBhNqqqreuqqqc9Wju6MHE6qqqt66qqajc6KjBpgHE5Wqqt66qqaWdAdYCqOivYcHeAZzcqNycnNDo6OLBosHoqQHE6mqqt66qpajcqSkBzsKdaOhBxOqqqreupKWo6Rzu3NzcqODBnoGRXNyclujBhOqqqreuqWqo6S9u0IGE6qlVt66paqkogeUBjsKmqIGE6qqqt66qZaidKSilwaYvKJyo0MGE6qVVt66qkp0pHJalwaYBtOjBhOqpVbeuqqWjwpzpKIGWAqidKO7c6K8eAeIBlcKo6MHWAqUCnNzc7sHOwpzWwZYCqMGE6qpVt66qqpzc3IKcwcTqqpW3rqpVqNakgcTqqqq3rqpqpwHOwpbcwZhCnOjcwYTqqqW3rqVqqRzBxOqqSreuqqqo3JypHNydAeKB1t0cgpyi3QHE6qqVt65VaqjonIKpAcTqqlW3XqqqqRycnRzcnNzlAp5B4UGcnOGBngGdqMGVwqilAp0o6EGOwqjdZQKcwdXCqRzcnJzc/sNvCqjBxOqVVbeeqqqo6NzoqOjc6OjowcTqaqq3nVVqluMiqNzo6O8oweMBxOqVVbetVWqo3MHOwqkcnJzBxOqlVbeuqqqvKQHgQqUCnOjcwcTqqVW3nqqqqSju6NypAc7CryjBxOqlVbetVWqc6NyWnS8WnNy06R0vKJaBxOqkqreuqqqpNMGE6pSqt66VaqjdAaLB1q7cwdy+wxyB2IKolwGOwqkW3IGgwqidKRydHOiB4IKc3IGiwd0crpyRJ8HkAakc6MGOwpzc3KjpHwKo3IGYgqkBpsGkqS8owYTqlKq3nqpqqO76gb7nesVjwoHQvclFXRzoqMHQwRzBhOqqVbeeqqqo6NzB0UWpouec12jBrlyFaN0c6IG9w4EcnWkoQf7C7sVo3Nzowa7IBUTqqVW3rqqqpZbBzsKoqO8owcTqqlW3nVVqqOjW3NyoweVBphbdHNzowaZB+pMFaSUCgf3JfcOFXSjonMGcgQTqqVW3rVVqnR0BzsKoqIHjRajfAqic3QGcvvNFY8KB7WjFXoGggqUCnOjc3IKB4MKu6IGhQqkdAYTtaqq3rlVqqJbhQYTqaqq3rpVqqq7FaNbc7sG09IVW6O7cwbSpBXTREPSBlxbFROlqVbeulWqcnOkowdD91UVpJIHnHJzBvckpBVyi1x7BosHgnOkB5EHYQqdcwcTqqpW3rqVqqO7cwdXCqOjBhOqlVbeuqmqonOWBpmLBnMH+zwqFXIHE6qVVt66UlajpHMG9wz3hhVbW7u7BqQWcrp0BxOqqpbeuqmqc3K7o7tzpKMGE6qqpt66qqajmQaLB65zBzsKc3IHhAqjWwcTqqqq3rqqVnNzBxOqqqbeupJWo1wH+9D8dxWklAoG94ejFROVqqredVVWo6Nzcwbq9wwVcqSkcgf8jffPFY8KcnKkpAb3VXMVQqOjpCtyunKjc7xzpKPTpHMGhAqiB4sHE6qqpt61Vaqju3OjcgaBCkR00nIHE6qqmt56qqpDpHQH0/dUFaRzBhOqqqXetVWqonN0cnKDBnoHdKRboqIHOwqkuwYTqqqq3rpVqqN0pKIGmAcTqqqp3rlVqpdypHOjB4sHo3IHE6qqqr65VaqjdKJadAdZCqNzBmIKu/sNFXSionQGE6qqqd61Vaq7BKOjc3MH+ySMFeujQ6NzWwYOQwr3BPdVLQr3tPgiPQpDCvcQ908tCvgJ+Cg5CkMK95l3LQr3qff2MgpDCvdady0K+F73hSEKQwrh9VoK9z5MCvcyKQr4UPexMQpDCsav9wSvWgr3V8P3LMP3dvc6Pwr4Yv2wFScKDvxTcXb39O/343cB91P3PgP3xQT3U/v09z739PdS7/tS9+P7Pvvj+1MGDvvNcXb3lef3Aef3gXcB95b3PgP4LwT3lvsB+5Yv95b7lfc+95X3lef7lfcB95Xn+5X3gfs++4H7lgYOnovm93Tn917mkQr5RnAKiwT5wwb3HM3l8R+UB8l4x2OyHrOunr7GGvcCSd77HB79wwb6T/vjFYyKi4yKjIuKGoqFFYuMi4waioqLix4l9ygVUXBhUR788fde+PEGxaZgUB82/DQV/PH3dPjxBtWKlkBlGoIHUXBgUR4Odgr4CvUSivc69zv3DGP3SHP3Dfcq90gT9TwKE/v73vgVMQqijOv4j+sBi3AK9zloCuv9ygb7GU40JVwK+wzIQfcZHvnK6/2TBlFxr8kfDp6L7vdo7/dS7gGL9z/5MPdCA4uJCvQflAfJecRlsh6xrp27xhr3BUje+x4e/bwG+kb77hWLkYuRGvsF9yQVVXNkVR784vdS+OIGwaNjUh89/CkV/OL3aPjiBtCKlERoGoIHU3NjVR4Oh6F2987u97F3AfnG9z4DivfPFfmASgplYR79gAYOh6F2987v97B3AfnI9z4D988E+YFKCmZhHv2BBg6koXb3yu/3U/AB+eD3QQP6jYwV92wHxnW/aK4esa+evcUa9wJI4fseHv3BJvmRBsGlY1RVcWJVH/2RigUn+ZYHt6pkVB/7bAcOo6B2+OzvAYv3QgP3YvlQFfsfSDf7Ax/8jfdC+I0HwqOzwx75k+8GDrOgdvfP8fewdwGK90P5P3kK+e0W90P3cAb3BT/fJh787QZVcbR9CvsE0DX3Hh741Aa3qmRTHw6rjO/3a/H3r5UK90P5O/dCA5TwFSf5wgf3Hc/q9wQf+IH7Qvuv/OwHVXKzfQr7A9A19x0e+RwGjPsABVNYWFQeDtCL5/cO5/cN5ufmAb9nCvq/Wwr9wQb7GEg9IogfVzC/+w1XL792BvsBzDf3HR75wef9kAZRcLXGH6D3uOf7uPcN97jm+7gHwI6nssEb+ZAGDosKhgoTeF8KE7hdCg772PfS7wH30gT5Nu/9NgYO+zr30u8B99IE+dTv/dQGDrGK4/ih5AGL90H5RvdBA/nTWwr9Bgb7GEKNCtQz9xge+QYG9xjU4/Mf99IH9wtC1PsYHlMyFcp0Ckwe++MG99v4oQX8jl4K998G+9v8oQUOIPg6dveLv4x3EvdA3fdq2+bh4NwT3vlQBFf3QPuL3feL9z+/BxO+98SMFXV8iIZ+H49/e497Gz4GSnJjXx/7bNv3bAeakpyeHrIGnJR6fB/7bOH3bAeakpyYHrMGmZZ6fB/7bNz3bAe3cbNMHg6Yn3b48esB+DlwCor5UBUr+Dr88fc5+PH4OusHDqagdvjt7wH55fdCA/lRBCf5lgfCo2JVH/yO90L4jgf3A0jf+x4eDqCgdvfN9PdQ7AH34/c79/NnCviK924Vxq6vux73eQb3Jsbd9wvxUOL7Jh/9wir5lgbGo11dTXNpUB/7kgYhQDF1Cquhdvjt7EQKDq9NCvcE91U1CvfP+Cs9Cq9NCvcQ9081CvhP+DE5Cq9NCvecdzUK9+f4AjIKr00K4fVWCvdSTAowCvho97oxCncK+cL3VUEKWPqDPQp3CvnO909BCqH6iTkKdwr6WXdBCjf6WTIKdwr5qPUSMfcMbfdAcfcNE9BHChPo6voSMQqroXb47ez3XHdECvsB9yohClUK9wT3VSoK+3/6Ij0KVQr3EPdPKgr7MPooOQpVCvefdyoK+4b5/DIKVQr3WncqCk35hSEKVQrh9VYK9y5MCvc0JQo9+bExCodxCvlS91U3CviZ98U9CodxCvle9083Cvjq98s5CodxCvnudzcK+Iz3oDIKh3EK+Tj1AYr3NvcvTAr3IjMK+Tb3VDEKdgr4MPdPPgr8I/iMOQpCCrz3VSgK+9j5Dz0KQgq8908oCvty+Qk5CkIK95V3KAr74/keMgpCCvdWdygK+xv4rSEKQgq89QGACvcyTAr3NCQK+zT4uDEKQgrGr/cErwGACvdpw/csw/da90M/CvdS+1MgCg5LCr/3VS4K9/n4wj0KSwq9908uCvhH+Lo5CksK95V3Lgr35/jOMgpLCsD1AYv3Q/cwTAr3NywK+JX4bDEKn3b5h/dVQApU+kg9Cp92+YP3T0AKrfo+OQqfdvpUd0AKQPpUMgqfdvmE9RI09wxm90Zy9w0T0EYKE+jr+e4xCosK91J3hgoTfF8KE7xdChN8+Vz3ICEKUQq591UrCvt3+eA9ClEKufdPKwr7JvnaOQpRCveWdysK+4r58zIKUQr3UXcrClz5fCEKUQq89QGWCvcuTAr3LSYKQvmMMQp8cQr5EfdVOAr4j/eEPQp8cQr5EPdPOAr48/d9OQp8cQr54Xc4Cvh595MyCnxxCvkS9QGL9zX3K0wK9x00Cvkx9y4xCnMK908Si/dD+Tv3QhNcTgoTvFIK+P751TkKcwr1Eov3Q/em9wj3tfdCE15OChO+Ugr5OfmEMQqh+0Oognbnrb/f+KveEov3Mvh83BO++pDhFf2YBk1vt8of99UHyae4yR75mN79yAb7Gkk4IB/71Qf7Ac059xoe959xBmulb74eygafnnx8e3h7dx/7UwaJbgUTfveAigW/pKetqnKsVx9NBneBlpofpfhiBw5RCo13EpYK+Sz3RxPYIwoTuNL482AK+gFNCi0K+euCLwoO+cyM6S32NHb3t+s86fdf64p3EoAK+Tf3Q/k39ygTjcAiChNTwPeQ+1w2ChM1wEkKBhNVwPcABzoKDqCgdvfP8/dP7AGK9zr5P3AK9zn3bRXHrrG5HvjGBvcnxdz3CvJR4fsnH/29KvmTBsWjXV1Pc2hRH/zhBiNBL/sKH/tl9zoHDoqM+VOLBvfUFBwEfBWaEwB3AgABAEkAmgChAOkA7gE0AToBbAF0AXwBgwGLAZwBowGsAdsB4wH1AgoCOwJjAmgCigKTApwCqALCAssDAgMOAx0DXQNlA20DdwOBA60DxAPQA9wD5QPvBBIEHQQkBC0ETARRBGEEaASCBIoEkQSYBJ0EpgSvBLgEvQTBBMYE2ATpBPkFBgUPBRgFHAUlBSwFMwU3BUUFSwVOBVIFXwVmBWoFcAV0BXgFfQWIBZMFnAWjBagFrAWwBbQFuAXCBcwF1gXaBd4F5wXwBfkGAgYLBhQGHQYmBi8GOAZBBkoGUwZZBl4GYwZoBm0GcQZ1BnkGfRXDoWlSH/sE/QQH+xRDNvsIKdMl9xQf+OsG9xXS4PIf980H9wdE3/sVHv2zKwb5zPw0FVx1XFMe/I4GXl27xce5urgf+NwGCxVlmH+MhX8FgYeBh34bg4GMjoIf+yW+BZB+fo2AG2VpeWJ3H3hkBY2ZiY8bqX+SmQWYkpaQmhuTlImJkh+6e716unoIhpqaiJcbsaufsp4fDvl++PEgCgv5xooV9xfV5PEf99QH9wtB0/sXHvz4BvsWP0P7Cx/71Acl1zL3Fh7C7BVSc7q6H/fUB8ejr8Qe+IsGw6NnTx/71Adcc1xTHgt5CiIKC3gK+cuKFfcZ1eT0H/fOB/cMQdX7GR78/Qb7GUFB+wxPCiLVMvcZHsLsFVFzu7wf984HyaOtxR74jwbFo2lNTwpac1tRHgv3RwMjCgv4kAf3AUnf+xwe/Pp/Ckg3+wEf/JD3O/fQ+UH70Ac3+PQVxaViUB8n/UHvB8altMQeCwGACvk3JAoLZwr6jhYnCgtWCvkzJQoLAZYK+SwmCgv3KAP3kfcANgpJCvcABjoKC1oK+UEpCgsBi/dD+TgsCgsV+Zbx/cwG+xhCMiRcCvsL1EH3GB75zPH9lgZSda/HH/cK+eXs/eXnB7qhusQeCwP3lvjrLwoLFfsNIfcNBvuB9RX7DCH3DAYOFftT+yrEUrWtvLC1rBn3CyHJxAUO90QDivdgFfsIxTX3Fx747Qb3FtPhegr4hftE/IUHUXVoXx78kQZTdK7FH/iF+zYHC/dCA/ddBPsGxDb3FR745wb3FdHg9wZICnZqXx78iwZTdqxuCvs1BwtWCjAKCxVUdJMK5vkEB/cU0+n3B+1D8fsUH/zrBvsTQjYlH/vNBwsBivc2+SIzCgsBi/c1+Rk0CgsV+xsGN/tPBfcaBg79zPgpFbiiusIe+I8GuLlbUlBdVV4f/N0GCxOqqqreuqqqC/qPWwr7SPtVBlB0Z10e/J4GUHOvxh/3Vfs6+1UH+wrHQPcaHvdv+9D3SPfQ93AG9xjW1vcKHwsV+yQG3PtVBfckBg4Bivc694v3SPeLeAo8CgsD+M75jBWvn6KqH9cHrHegZx77LAZnd3ZqHz8HbJ90rx6ZrxWBh5SUH9cHlo+SlR73EAaVj4SAHz8HgoeCgR4LAYf3RgNGCgsBi/dAA0cKC46M6fdp6fdf6wufoHb30Of3XOgLAYr3R/kw90YD+cb5TxX9x/1O90f47fjdBsWkW1sf/I33RviNB/RB4/sYHgv5gxX3VfcrUcVhaVpmYGkZ+w32TVEFC/dCWwr7Rv1S90YGC/dAWwr7QP1S90AGC2sK+0L8iAdSC/sH1Db3Ex75swsGtahlVh/7c/c+93MHxXe8aK4erKyhvsMa91X7PvtWB1ZuC46L9wD3S+v3buoL9wz3CPcNC4vx92rs907xC/mB8BXCvr7DH4r3AAX9HAb7HUbh9wMf91D3Q/tQBwsf+84HC/cB9zJTCvi7Ywr7AQT7RAumiuz4kuoLVKRjwR747Pev90L8gQb7BEcs+x0e/cLvBgsBh/dEA/dAC/tlBfcQBguxiuz4j+0LAYr3SAsTqqpW3rqqqgsTqqqq3rqqlgsTqqqqvrqqqgsBi/c7C/lRFQsf+9AHC/yN90H4jQf3BEff+x0e/cEGC/yhFUxyv78f99IHzaSwyh4LjIwV90H46/jlBsCkZFMfCxX7TQb8S/1UBfdNBg4Tqqqq3rqVqgsTqqqq3rlVqgsVbQoLFfs++yv3PgYLo4uji6SLC/lTFfsQBgv3OgML91cV99AHuKW7xR75kwtmClpUCgtUCg4f+IgL+yYV+w73DvcO+w4GC/tE+zJ7CgvEawoL+IL3ZQEL9zkDC433AQsHOwqjC6uM74v3a4vx990LpGZJH/vSB1dyVwv7Ch/7Zvc7Bw6mn3b30O0L/c6fdgv3SAML90MDC/cIHwv3RAYLBxOqqqretVWqC8If91D7Q/tQBwv9ZvcOdviMdwELBvsbC4v3KQsTqqqq3nqqqgsTlaqq3rqqqgsTpaqq3rVVqgsTqqqm3rqqqgsTpaqq3rqqqgsSi/dC+TP3QQsf/JL3OfiSBwsf/JP3N/iTBwsE+bwG9x7O5QtzonN0c3OjowuhoHahdvjr8AsGU3SvxR/4hwtC+wsf+9IHIwuLi4uLHgujpHNyC6O6xB4LAYv3NgsG+yVQC67EHwujcnMLdwGLC4v3SAsAAAMSAAAE5v//BI8AAASS//8Eov//BH4AAAR4//8Ek///AbD//AGy//wBQ//8AiH//QFA//wBQP/8AUD//ASe//8El///BOf//wR/AAADjgAAAfsAAAMiAAACKQAAAvv/+gFAAAABQP/8AUD//AL4//oEkAAABH8AAAR/AAAEoP//BbYAAASFAAAFrQAABIIAAASOAAAEkQAABIAAAASGAAAEpAAABKQAAAK9//4DQ//+AsT//gSWAAAEkwAABKYAAAHH//8EcwAABIUAAASFAAABQP/8BJYAAASHAAAElwAABHMAAATa//0EbQAABJQAAATbAAABjgAJAY7//AL2//oD1AAAA3gAAAIJ//oCCQAAAXEAAAFr//kB1wAAAUMAAAE4AAAB1AAAAZb//ALrAAAEDv//Aw0AAAIVAAABqv/7BJUAAASQ//8Eof//AUIAAAGq//oDjAAAAx0AAAHrAAAE5gAACAEAAAFAAAADEgAABNr//QTbAAAEhf//BI8AAASPAAAEkQAAB9sAAANUAAAEkAAABJAAAASQAAAEkAAABJAAAASQAAACvQAAA0MAAASPAAAEl///BJMAAASPAAAEeP//BHgAAASV//8ElAAABKT//wScAAAEwQAABJIAAAM4AAAD1gAABKIAAAQRAAAEif//BJcAAASRAAAEnP//BKD//wSg//8EoP//BKD//wFC/+kBQv/nAUL/mQFC/6YEnP//BKL//wSi//8Eov//BKL//wSi//8EeP//BHj//wR4//8EeP//BJf//wR/AAAEfwAABH8AAAR/AAAEfwAABH8AAAR/AAAEfwAABH8AAAR/AAABQP/nAUD/9QFA/6QBQP+pBJIAAASXAAAElwAABJcAAASXAAAElwAABG0AAARtAAAEbQAABG0AAAScAAAEnAAABJIAAASXAAAH6QAAB7QAAASR//8=) format('opentype');font-weight:400;font-display:swap}
 </style>
 </head><body>
@@ -700,7 +745,7 @@ function applyTheme(){const t=themeColor();const [h,s]=hexHsl(t.c);const hr=new 
   Waves.setPal(a,b,c);let mt=document.querySelector('meta[name=theme-color]');if(!mt){mt=document.createElement('meta');mt.name='theme-color';document.head.appendChild(mt)}mt.content=`rgb(${a})`;document.documentElement.style.backgroundColor=`rgb(${c})`}
 
 /* ================= waves (silk ribbon) ================= */
-const Waves=(()=>{const cv=$('#bg'),cx=cv.getContext('2d');let w=0,h=0,raf=0,t0=performance.now(),fl=0,skip=false,P={a:[40,110,200],b:[20,60,130],c:[5,16,40]};
+const Waves=(()=>{const cv=$('#bg'),cx=cv.getContext('2d');let w=0,h=0,raf=0,t0=performance.now(),fl=0,skip=false,TX=0,TY=0,tx=0,ty=0,P={a:[40,110,200],b:[20,60,130],c:[5,16,40]};
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const rgb=v=>`rgb(${v[0]},${v[1]},${v[2]})`;
   function size(){const d=Math.min(2,devicePixelRatio||1);w=innerWidth;h=innerHeight;cv.width=Math.round(w*d);cv.height=Math.round(h*d);cx.setTransform(d,0,0,d,0,0);draw(performance.now())}
   function ribbon(t,o){const N=Math.ceil(w/14)+2;const cy=new Array(N),sp=new Array(N),tw=new Array(N);
@@ -710,15 +755,15 @@ const Waves=(()=>{const cv=$('#bg'),cx=cv.getContext('2d');let w=0,h=0,raf=0,t0=
   function draw(now){const t=(now-t0)/1000;
     const g=cx.createLinearGradient(0,0,0,h);g.addColorStop(0,rgb(P.a));g.addColorStop(.5,rgb(P.b));g.addColorStop(.9,rgb(P.c));g.addColorStop(1,rgb(P.c));cx.fillStyle=g;cx.fillRect(0,0,w,h);
     const r=cx.createRadialGradient(w*.22,h*.3,0,w*.22,h*.3,Math.max(w,h)*.55);r.addColorStop(0,'rgba(255,255,255,.1)');r.addColorStop(1,'rgba(255,255,255,0)');cx.fillStyle=r;cx.fillRect(0,0,w,h);
-    cx.globalCompositeOperation='lighter';
-    ribbon(t,{y:.64,amp:.075,f1:.9,f2:1.9,sp:.13,n:46,spread:.1,a:.085,tw:1.15,ph:0,tilt:.07});
-    ribbon(t+40,{y:.7,amp:.05,f1:.7,f2:1.5,sp:-.09,n:22,spread:.045,a:.07,tw:.8,ph:1.7,tilt:.03});
+    cx.globalCompositeOperation='lighter';tx+=(TX-tx)*.08;ty+=(TY-ty)*.08;
+    ribbon(t+tx*1.6,{y:.64+ty*.06,amp:.075,f1:.9,f2:1.9,sp:.13,n:46,spread:.1,a:.085,tw:1.15,ph:0,tilt:.07});
+    ribbon(t+40-tx*1.2,{y:.7+ty*.045,amp:.05,f1:.7,f2:1.5,sp:-.09,n:22,spread:.045,a:.07,tw:.8,ph:1.7,tilt:.03});
     cx.globalCompositeOperation='source-over';
     if(fl>0){cx.fillStyle=`rgba(255,255,255,${(fl*.18).toFixed(3)})`;cx.fillRect(0,0,w,h);fl*=.9;if(fl<.01)fl=0}}
   function loop(now){raf=0;skip=!skip;if(!skip||fl>0)draw(now);if(!reduce&&!document.hidden)raf=requestAnimationFrame(loop)}
   addEventListener('resize',size);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!raf&&!reduce)raf=requestAnimationFrame(loop)});
   size();if(!reduce)raf=requestAnimationFrame(loop);
-  return{flash(){fl=1;if(reduce)draw(performance.now())},setPal(a,b,c){P={a,b,c};draw(performance.now())}}
+  return{flash(){fl=1;if(reduce)draw(performance.now())},setPal(a,b,c){P={a,b,c};draw(performance.now())},tilt(x,y){TX=x||0;TY=y||0}}
 })();
 
 /* ================= filled category icons ================= */
@@ -904,7 +949,8 @@ function collectNeeds(){const out=[],now=new Date(),dow=now.getDay(),today=ymd(n
   }
   for(const i of moneyDoc().invoices.filter(isOverdue))out.push({icon:'money',tone:'bad',t:`Overdue: #${i.num} ${invName(i)}`,s:`${fmtA(invAED(i))} · ${daysBetween(parseYmd(i.due),now)} days late`,act:'goMoneyTab',data:'data-t="invoices"'});
   for(const x of nextInvoices().filter(x=>x.next<=today))out.push({icon:'doc',tone:'acc',t:`Send invoice: ${x.c.name}`,s:`${money(x.r.amount,x.r.cur)} · Money, Next invoices`,act:'goMoneyTab',data:'data-t="overview"'});
-  {const ba=backupAge();if(ba===null||ba>=7)out.push({icon:'save',tone:'warn',t:'Back up your save data',s:ba===null?'Never backed up. Tap to save a copy to Files':`Last backup ${ba} days ago`,act:'backupShare'})}
+  if(typeof Sync!=='undefined'&&Sync.on()&&Sync.meta.err&&!/^Offline/.test(Sync.meta.err))out.push({icon:'warn',tone:'warn',t:'Sync needs a look',s:Sync.meta.err,act:'syncMenu'});
+  {const ba=backupAge();if((typeof Sync==='undefined'||!Sync.on())&&(ba===null||ba>=7))out.push({icon:'save',tone:'warn',t:'Back up your save data',s:ba===null?'Never backed up. Tap to save a copy to Files':`Last backup ${ba} days ago`,act:'backupShare'})}
   for(const p of bizList()){if(p.nextDate&&p.nextDate<=today&&p.stage!=='won'&&p.stage!=='lost')out.push({icon:'biz',tone:p.nextDate<today?'bad':'acc',t:`Follow up: ${p.name}`,s:p.next||'Next step due',act:'openBiz',data:`data-id="${p.id}"`})}
   return out}
 function todayTodos(){const today=ymd(new Date());const L=todosDoc().list.filter(x=>!x.done&&x.due&&x.due<=today).sort(todoSort);const open=todosDoc().list.filter(x=>!x.done).length;
@@ -1111,15 +1157,17 @@ RENDER.system=()=>{const s=S();const got=Object.keys(s.trophies||{}).length;cons
   ${Store.mode!=='cloud'?'':rowHtml({act:'setDoc',icon:'doc',t:'Weekly content doc',s:s.docUrl?s.docUrl.replace(/^https?:\/\//,'').slice(0,48)+'…':'Not set. Pull from doc will ask.'})}
   ${rowHtml({act:'openTheme',icon:'today',t:'Theme colour',s:(S().theme||'monthly')==='monthly'?`Monthly, like the PS3 · ${THEMES[new Date().getMonth()].n} this month`:(THEMES.find(t=>t.id===S().theme)||{}).n||'Monthly'})}
   ${rowHtml({act:'setFx',icon:'money',t:'Currency rates',s:`1 GBP = ${fx.GBP} AED · 1 USD = ${fx.USD} · 1 EUR = ${fx.EUR}`})}
+  ${typeof ps3SettingsRows==='function'?ps3SettingsRows():''}
   </div></section>
-  <section><div class="lbl">Trophies</div><div class="list">${rowHtml({act:'openTrophies',iconHtml:ico('trophy','t-gold'),t:`${got} of ${TROPHIES.length} earned`,s:'Bronze, silver, gold and one platinum'})}</div></section>
+  <section><div class="lbl">Trophies</div><div class="list">${rowHtml({act:'openTrophies',iconHtml:ico('trophy','t-gold'),t:`${got} of ${TROPHIES.length} earned`,s:typeof psnLevel==='function'?`Level ${psnLevel().lvl} · see them all`:'Bronze, silver, gold and one platinum'})}</div></section>
   <section><div class="lbl">Save data</div><div class="list">
-  <div class="row" style="cursor:default"><span class="row-ic ${Store.mode==='cloud'&&!Store.readOnly?'ok':'warn'}">${ico('save')}</span><span class="row-main"><span class="row-t">${Store.mode==='cloud'?(Store.readOnly?'Read only':'Synced to your Claude account'):'This device only'}</span><span class="row-s">${Store.mode==='cloud'?'Same data on your phone and laptop':'Copy a backup now and then to keep it safe'}</span></span></div>
+  ${Store.mode!=='cloud'&&typeof syncRows==='function'?syncRows():`<div class="row" style="cursor:default"><span class="row-ic ${Store.mode==='cloud'&&!Store.readOnly?'ok':'warn'}">${ico('save')}</span><span class="row-main"><span class="row-t">${Store.mode==='cloud'?(Store.readOnly?'Read only':'Synced to your Claude account'):'This device only'}</span><span class="row-s">${Store.mode==='cloud'?'Same data on your phone and laptop':'Copy a backup now and then to keep it safe'}</span></span></div>`}
   ${rowHtml({act:'backupShare',icon:'save',iconCls:'acc',t:'Save backup to Files',s:(()=>{const a=backupAge();return a===null?'Never backed up. Save it to iCloud Drive':a===0?'Backed up today':`Last backup ${a} days ago`})()})}
   ${rowHtml({act:'backupCopy',icon:'copy',t:'Copy backup',s:'Everything as text, paste it in Notes'})}
   ${rowHtml({act:'backupRestore',icon:'paste',t:'Restore from backup',s:'Replaces what is here'})}
   </div></section>
-  <section><div class="lbl">System information</div><div class="sysinfo"><div><span>System</span><span>RRG CODEX 1.00</span></div><div><span>Owner</span><span>Really Really Good</span></div><div><span>Clients</span><span>${clients().length}</span></div><div><span>Time entries</span><span>${allEntries().length}</span></div><div><span>Hooks</span><span>${hooksDoc().list.length}</span></div><div><span>Ideas</span><span>${vaultDoc().ideas.length}</span></div></div></section>`};
+  ${typeof ps3SystemRows==='function'?ps3SystemRows():''}
+  <section><div class="lbl">System information</div><div class="sysinfo"><div><span>System</span><span>RRG CODEX ${typeof APP_VER!=='undefined'?APP_VER:'1.00'}</span></div><div><span>Owner</span><span>Really Really Good</span></div><div><span>Clients</span><span>${clients().length}</span></div><div><span>Time entries</span><span>${allEntries().length}</span></div><div><span>Hooks</span><span>${hooksDoc().list.length}</span></div><div><span>Ideas</span><span>${vaultDoc().ideas.length}</span></div></div></section>`};
 PANELS.trophies=()=>{const s=S().trophies||{};return {title:'Trophies',body:`<section class="trophies">${TROPHIES.map(t=>{const g=s[t.id];return `<div class="tro ${g?'':'lock'}">${ico('trophy','t-'+t.tier)}<b>${esc(t.n)}</b><small>${esc(t.d)}</small><small>${g?'Earned '+fmtDM(new Date(g)):t.tier[0].toUpperCase()+t.tier.slice(1)}</small></div>`}).join('')}</section>`}};
 
 /* ================= actions ================= */
@@ -1658,7 +1706,7 @@ document.addEventListener('change',e=>{const el=e.target.closest('[data-ch]');if
 document.addEventListener('keydown',e=>{const el=e.target.closest&&e.target.closest('[data-enter]');if(el&&e.key==='Enter'&&!e.shiftKey&&el.tagName==='INPUT'){e.preventDefault();const fn=A[el.dataset.enter];if(fn)fn(el)}
   if(e.key==='Escape'){if(!$('#sheet').hidden||!$('#opts').hidden)closeSheet();else if(view.panel)A.closePanel()}
   if(/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement&&document.activeElement.tagName))return;
-  if(!$('#sheet').hidden||!$('#opts').hidden||view.panel||!Store.ready||!$('#boot').classList.contains('go'))return;
+  if(!$('#sheet').hidden||!$('#opts').hidden||view.panel||!Store.ready||($('#boot')&&!$('#boot').classList.contains('go')))return;
   if(e.key==='ArrowRight')goCat(view.cat+1);if(e.key==='ArrowLeft')goCat(view.cat-1)});
 $('#scrim').addEventListener('click',()=>closeSheet());
 (()=>{let sx=0,sy=0,st=0,tgt=null;const on=(el,fn)=>{el.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now();tgt=e.target},{passive:true});el.addEventListener('touchend',e=>{const t=e.changedTouches[0];const dx=t.clientX-sx,dy=t.clientY-sy;if(Date.now()-st>600||Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy)*1.6)return;if(tgt&&tgt.closest&&tgt.closest('.hs,.tabs,textarea,input,select,.hist'))return;fn(dx)},{passive:true})};
@@ -1673,6 +1721,373 @@ setInterval(()=>{const now=Date.now();document.querySelectorAll('[data-tick]').f
   if(!Store.ready)return;const f=toolsDoc().focus;if(f.run){focusTick();const fe=document.querySelector('[data-focus]');if(fe&&f.run)fe.textContent=fmtMS(f.run.endAt-now)}
   const m=new Date().getMinutes();if(m!==lastMin){lastMin=m;renderStatus();if(m===0)applyTheme()}},1000);
 
+/* ================= PS3 extras: controller, rumble, screensaver, system menus, easter eggs ================= */
+const APP_VER='5.00';
+Object.assign(IC,{
+  pad:'<path d="M7.6 7h8.8a4.6 4.6 0 0 1 4.5 3.7l1 5.1a2.6 2.6 0 0 1-4.5 2.2L15.6 16H8.4l-1.8 2a2.6 2.6 0 0 1-4.5-2.2l1-5.1A4.6 4.6 0 0 1 7.6 7z"/><path d="M7.6 10.2v3M6.1 11.7h3"/><circle cx="15.6" cy="10.6" r=".5"/><circle cx="17.4" cy="12.6" r=".5"/>',
+  wave:'<path d="M2.5 14.5c3-4 6.2-4 9.5 0s6.5 4 9.5 0"/><path d="M2.5 9.5c3-3 6.2-3 9.5 0s6.5 3 9.5 0" opacity=".55"/>',
+  power:'<path d="M12 3.2v8"/><path d="M6.7 6.6a7.4 7.4 0 1 0 10.6 0"/>',
+  chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2.8V6M15 2.8V6M9 18v3.2M15 18v3.2M2.8 9H6M2.8 15H6M18 9h3.2M18 15h3.2"/>'
+});
+
+/* ---------- trophies: hidden ones, PSN style level ---------- */
+(()=>{const add=[
+  {id:'pad',n:'Plug and Play',d:'Connect a controller',tier:'bronze'},
+  {id:'idle',n:'Wave Watcher',d:'Let the screensaver take over',tier:'bronze',hidden:true},
+  {id:'bird',n:'Early Bird',d:'Open the app before 7 AM',tier:'bronze',hidden:true},
+  {id:'update',n:'Up to Date',d:'Run a System Update',tier:'bronze',hidden:true},
+  {id:'off',n:'Goodnight',d:'Turn off the system and back on',tier:'bronze',hidden:true},
+  {id:'safe',n:'Safe Mode',d:'Start up in Safe Mode',tier:'silver',hidden:true},
+  {id:'debug',n:'Dev Kit',d:'Unlock Debug Settings',tier:'silver',hidden:true},
+  {id:'konami',n:'Old School',d:'Enter the code from 1986',tier:'gold',hidden:true}];
+  const i=TROPHIES.findIndex(t=>t.tier==='plat');TROPHIES.splice(i<0?TROPHIES.length:i,0,...add.filter(a=>!TROPHIES.some(t=>t.id===a.id)))})();
+const PS_PTS={bronze:15,silver:30,gold:90,plat:180};
+function psnLevel(){const s=S().trophies||{};let pts=0;const c={bronze:0,silver:0,gold:0,plat:0};let got=0;TROPHIES.forEach(t=>{if(s[t.id]){pts+=PS_PTS[t.tier]||0;c[t.tier]=(c[t.tier]||0)+1;got++}});return{lvl:1+Math.floor(pts/60),pct:(pts%60)/60,pts,c,got}}
+function levelCard(){const L=psnLevel();return `<div class="lvl-card"><div class="lvl-star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l3.1 6.5 7.1.9-5.2 4.9 1.3 7-6.3-3.5-6.3 3.5 1.3-7L1.8 9l7.1-.9z" fill="#f1cf62" stroke="#fff4c4" stroke-width=".7" stroke-linejoin="round"/></svg><b>${L.lvl}</b></div><div class="lvl-main"><div class="lvl-t">Level ${L.lvl}<span>${Math.round(L.pct*100)}%</span></div><div class="lvl-bar"><i style="width:${Math.max(3,Math.round(L.pct*100))}%"></i></div><div class="lvl-c">${['plat','gold','silver','bronze'].map(k=>`<span>${ico('trophy','t-'+k)}${L.c[k]||0}</span>`).join('')}<span class="lvl-n">${L.got}/${TROPHIES.length}</span></div></div></div>`}
+function trophyCard(t,g){const hid=t.hidden&&!g;return `<div class="tro ${g?'':'lock'}">${ico('trophy','t-'+t.tier)}<b>${hid?'Hidden Trophy':esc(t.n)}</b><small>${hid?'Keep exploring to find this one':esc(t.d)}</small><small>${g?'Earned '+fmtDM(new Date(g)):t.tier==='plat'?'Platinum':t.tier[0].toUpperCase()+t.tier.slice(1)}</small></div>`}
+PANELS.trophies=()=>{const s=S().trophies||{};return{title:'Trophies',body:`${levelCard()}<section class="trophies">${TROPHIES.map(t=>trophyCard(t,s[t.id])).join('')}</section>`}};
+if(typeof A.openTrophies!=='function')A.openTrophies=()=>openPanel('trophies','all');
+
+/* ---------- haptics (iPhone taps) and controller rumble ---------- */
+const Feel={lab:null,
+  tick(n=1){try{if(!Store.ready||S().haptics===false)return}catch(e){return}const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;
+    try{if(navigator.vibrate){navigator.vibrate(n>1?[12,70,12]:12);return}
+      if(!this.lab){const l=document.createElement('label');l.setAttribute('aria-hidden','true');l.style.cssText='position:fixed;left:-300px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';const i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.tabIndex=-1;l.appendChild(i);document.body.appendChild(l);this.lab=l}
+      this.lab.click();if(n>1)setTimeout(()=>{this.lab&&this.lab.click()},90)}catch(e){}},
+  rumble(ms,s,w){if(!Pad.on)return;try{const g=Pad.gp();const v=g&&g.vibrationActuator;if(v&&v.playEffect)v.playEffect('dual-rumble',{startDelay:0,duration:ms,strongMagnitude:s,weakMagnitude:w}).catch(()=>{})}catch(e){}}};
+{const _p=Snd.play;const FEEL={move:1,tick:1,check:1,uncheck:1,add:1,remove:1,go:1,land:1,done:2,err:2,trophy:2};
+  Snd.play=function(n){_p.call(this,n);const k=FEEL[n];if(k){Feel.tick(k);Feel.rumble(n==='trophy'?450:k>1?180:45,k>1?.8:.25,k>1?.6:.35)}}}
+const beep=(f=1200,d=.12,v=.06)=>{try{if(S().sound!==false)Snd.tone(f,{dur:d,vol:v})}catch(e){}};
+
+/* ---------- controller (Gamepad API) ---------- */
+const Pad={on:false,idx:null,prev:{},rep:{},raf:0,
+  gp(){try{const l=navigator.getGamepads?navigator.getGamepads():[];if(this.idx!=null&&l[this.idx])return l[this.idx];for(const g of l)if(g){this.idx=g.index;return g}}catch(e){}return null},
+  connect(g){const was=this.on;this.idx=g.index;this.on=true;if(!this.raf)this.loop();if(was)return;document.body.classList.add('pad');Psx.show('pad');Snd.play('option');
+    toast('Controller connected','ok','Cross selects, Circle goes back, Triangle opens the menu');setTimeout(()=>Feel.rumble(260,.8,.8),60);if(Store.ready&&Psx.inited)award('pad');else Psx.padLater=true},
+  drop(){this.on=false;this.idx=null;cancelAnimationFrame(this.raf);this.raf=0;document.body.classList.remove('pad');if(Psx.src==='pad'){Psx.src='';Psx.hide()}toast('Controller disconnected')},
+  loop(){const f=()=>{this.raf=requestAnimationFrame(f);try{this.poll()}catch(e){}};this.raf=requestAnimationFrame(f)},
+  poll(){const g=this.gp();if(!g)return;const now=performance.now();const B=i=>{const b=g.buttons[i];return !!(b&&(b.pressed||b.value>.5))};const ax=g.axes||[];
+    const D={up:B(12)||ax[1]<-.6,down:B(13)||ax[1]>.6,left:B(14)||ax[0]<-.6,right:B(15)||ax[0]>.6};
+    for(const d in D){if(D[d]){const r=this.rep[d];if(!r){this.rep[d]=now+400;Psx.dir(d,'pad')}else if(now>=r){this.rep[d]=now+(d==='left'||d==='right'?240:115);Psx.dir(d,'pad')}}else delete this.rep[d]}
+    const M={0:'cross',1:'circle',2:'square',3:'triangle',4:'l1',5:'r1',6:'l2',7:'r2',8:'select',9:'start',16:'ps'};
+    for(const i in M){const p=B(+i);if(p&&!this.prev[i])Psx.btn(M[i]);this.prev[i]=p}
+    const ry=ax[3]||0,rx=ax[2]||0;if(Math.abs(ry)>.3){Psx.poke();const L=Psx.layer();const sc=L&&(L.id==='col'?L:(L.querySelector('.panel-b')||L));if(sc)sc.scrollBy(0,ry*14)}
+    if(!Psx.tiltOn)Waves.tilt(Math.abs(rx)>.15?rx:0,0)}};
+
+/* ---------- focus navigation, menus, screensaver, eggs ---------- */
+const GL={cross:'<svg viewBox="0 0 16 16"><path d="M4.2 4.2l7.6 7.6M11.8 4.2l-7.6 7.6" stroke="#8ab8ff" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  circle:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4.7" fill="none" stroke="#ff7a7a" stroke-width="2.1"/></svg>',
+  tri:'<svg viewBox="0 0 16 16"><path d="M8 3.3l4.9 8.4H3.1z" fill="none" stroke="#6fe3b6" stroke-width="2" stroke-linejoin="round"/></svg>',
+  sq:'<svg viewBox="0 0 16 16"><rect x="3.7" y="3.7" width="8.6" height="8.6" rx=".6" fill="none" stroke="#f39ad9" stroke-width="2"/></svg>'};
+const Psx={mode:false,src:'',el:null,mem:{},ssOn:false,ssT:0,ssIv:0,swallow:0,buf:[],taps:0,tapT:0,safeReq:false,inited:false,tiltOn:false,padLater:false,_af:0,_sec:0,
+  layer(){const sm=$('#safe');if(sm)return sm;const o=$('#opts'),sh=$('#sheet'),p=$('#panel');if(o&&!o.hidden)return o;if(sh&&!sh.hidden)return sh;if(view.panel&&p&&!p.hidden)return p;return $('#col')},
+  SEL:'button,a[href],input:not([type=hidden]):not([type=file]),select,textarea,label.btn,[data-act]',
+  items(L){if(!L)return[];return [...L.querySelectorAll(this.SEL)].filter(e=>{if(e.disabled||e.closest('[hidden]'))return false;if(!e.matches('input,select,textarea')){const par=e.parentElement&&e.parentElement.closest(this.SEL);if(par&&L.contains(par))return false}const r=e.getBoundingClientRect();return r.width>1&&r.height>1})},
+  keyOf(e){return[e.dataset.act||e.tagName,e.dataset.id||'',e.dataset.t||'',e.dataset.cat||'',e.dataset.k||'',e.id||'',e.getAttribute('aria-label')||''].join('|')},
+  set(e,scroll=true){if(this.el&&this.el!==e)this.el.classList.remove('gpf');this.el=e;if(!e)return;const L=this.layer();if(L)this.mem[L.id||'x']={key:this.keyOf(e),idx:this.items(L).indexOf(e)};
+    if(this.mode){e.classList.add('gpf');if(scroll){try{e.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'})}catch(x){}}}},
+  ensure(){const L=this.layer();if(!L)return null;if(this.el&&this.el.isConnected&&L.contains(this.el))return this.el;if(this.el)this.el.classList.remove('gpf');
+    const it=this.items(L);const m=this.mem[L.id||'x'];let pick=null;if(m){const same=it.filter(e=>this.keyOf(e)===m.key);pick=same.length===1?same[0]:(it[Math.min(m.idx,it.length-1)]||null)}
+    if(!pick){const vis=it.filter(e=>{const r=e.getBoundingClientRect();return r.top>=56&&r.bottom<=innerHeight});pick=vis.find(e=>e.getBoundingClientRect().width>=140)||vis[0]||it[0]||null}this.set(pick,false);return pick},
+  show(src){if(src)this.src=src;if(!this.mode){this.mode=true;document.body.classList.add('nav-on')}this.hints();const e=this.ensure();if(e)e.classList.add('gpf')},
+  hide(){if(!this.mode)return;this.mode=false;document.body.classList.remove('nav-on');if(this.el)this.el.classList.remove('gpf');this.hints()},
+  after(){if(!this.mode)return;cancelAnimationFrame(this._af);this._af=requestAnimationFrame(()=>{const e=this.ensure();if(e)e.classList.add('gpf')})},
+  near(cur,d,items){const a=cur.getBoundingClientRect();const acx=a.left+a.width/2,acy=a.top+a.height/2;let best=null,bs=1e9;
+    for(const e of items){if(e===cur)continue;const r=e.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;
+      if(d==='up'||d==='down'){if(d==='down'?cy<=acy+2:cy>=acy-2)continue;const gap=d==='down'?r.top-a.bottom:a.top-r.bottom;if(gap<-Math.min(a.height,r.height)*.5)continue;const ov=Math.min(a.right,r.right)-Math.max(a.left,r.left);const s=Math.max(0,gap)+(ov>0?0:40+Math.abs(cx-acx)*2);if(s<bs){bs=s;best=e}}
+      else{const ov=Math.min(a.bottom,r.bottom)-Math.max(a.top,r.top);if(ov<Math.min(a.height,r.height)*.4)continue;if(d==='right'?cx<=acx+2:cx>=acx-2)continue;const gap=d==='right'?r.left-a.right:a.left-r.right;if(gap<-6)continue;if(gap<bs){bs=gap;best=e}}}
+    return best},
+  booting(){const bt=$('#boot');return bt&&!bt.classList.contains('go')?bt:null},
+  dir(d,src){this.code(d);if(this.wake())return;if($('.psoff'))return this.powerOn();if(this.booting())return;
+    const a=document.activeElement;if(a&&a!==document.body&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){if(src==='key')return;a.blur()}
+    if(!this.mode||this.src!==src){const was=this.mode;this.show(src);if(!was&&this.el){Snd.play('tick');return}}
+    const L=this.layer(),cur=this.ensure();let pool=this.items(L);if(L&&L.id==='col'&&(d==='left'||d==='right')&&cur)pool=pool.filter(e=>e.parentElement===cur.parentElement);const nx=cur?this.near(cur,d,pool):null;
+    if(nx){this.set(nx);Snd.play('tick');return}
+    if((d==='left'||d==='right')&&L&&L.id==='col'){goCat(view.cat+(d==='left'?-1:1));return}
+    if(d==='left'&&L&&L.id==='panel'&&typeof A.closePanel==='function'&&!(view.panel&&view.panel.type==='player')){A.closePanel();return}
+    if((d==='up'||d==='down')&&L){const sc=L.id==='col'?L:(L.querySelector('.panel-b')||L);sc.scrollBy({top:d==='up'?-140:140,behavior:'smooth'})}},
+  btn(n){if(n==='circle')this.code('b');if(n==='cross')this.code('a');if(this.wake())return;if($('.psoff')){this.powerOn();return}
+    const bt=this.booting();if(bt){if(n==='cross'||n==='start')bt.click();return}
+    switch(n){
+      case 'cross':{if(!this.mode){this.show('pad');Snd.play('tick');return}const e=this.ensure();if(!e)return;
+        if(e.tagName==='TEXTAREA'||(e.tagName==='INPUT'&&!/^(checkbox|radio|range|button|submit)$/.test(e.type))){e.focus();try{if(/date|time/.test(e.type)&&e.showPicker)e.showPicker()}catch(x){}return}
+        if(e.tagName==='SELECT'){e.focus();try{e.showPicker&&e.showPicker()}catch(x){}return}
+        e.click();this.after();return}
+      case 'circle':return this.back();
+      case 'triangle':case 'ps':return this.menu();
+      case 'square':return typeof A.fab==='function'?A.fab():this.menu();
+      case 'start':return typeof A.search==='function'?A.search():this.menu();
+      case 'select':return this.home();
+      case 'l1':case 'r1':return this.tab(n==='l1'?-1:1);
+      case 'l2':case 'r2':{const L=this.layer();const sc=L&&(L.id==='col'?L:(L.querySelector('.panel-b')||L));if(sc)sc.scrollBy({top:(n==='l2'?-1:1)*innerHeight*.7,behavior:'smooth'});return}}},
+  back(){const sm=$('#safe');if(sm){sm.remove();Snd.play('back');render();return}
+    if(!$('#opts').hidden||!$('#sheet').hidden){closeSheet();return}
+    if(view.panel&&typeof A.closePanel==='function'){A.closePanel();return}
+    if(view.cat!==0){goCat(0);return}Snd.play('err')},
+  home(){const sm=$('#safe');if(sm)sm.remove();closeSheet(true);if(view.panel){view.panel=null;$('#panel').hidden=true}if(view.cat!==0)goCat(0);else render()},
+  tab(d){const L=this.layer();const on=L&&L.querySelector('.tabs .tab.on');if(on){const sib=[...on.parentElement.children].filter(x=>x.matches('button,[data-act]'));const nx=sib[sib.indexOf(on)+d];if(nx){nx.click();this.after()}return}if(L&&L.id==='col')goCat(view.cat+d)},
+  hints(){let h=$('#hints');if(!h){h=document.createElement('div');h.id='hints';h.className='hints';h.hidden=true;document.body.appendChild(h)}
+    const show=this.mode&&(this.src==='pad'||this.src==='key')&&!this.ssOn;h.hidden=!show;if(!show)return;const key=this.src+(typeof A.fab==='function'?'+':'');if(h.dataset.k===key)return;h.dataset.k=key;
+    h.innerHTML=this.src==='pad'?`<span>${GL.cross}Enter</span><span>${GL.circle}Back</span><span>${GL.tri}Options</span>${typeof A.fab==='function'?`<span>${GL.sq}Add</span>`:''}`
+      :`<span><kbd>Enter</kbd>Select</span><span><kbd>Esc</kbd>Back</span><span><kbd>T</kbd>Options</span>${typeof A.fab==='function'?'<span><kbd>N</kbd>Add</span><span><kbd>/</kbd>Search</span>':''}`},
+  menu(){if(!$('#opts').hidden){closeSheet();return}if($('#safe'))return;const d=new Date(),L=[];
+    L.push({label:'Home',icon:'today',fn:()=>this.home()});
+    if(typeof A.search==='function')L.push({label:'Search',icon:'next',fn:()=>setTimeout(A.search,40)});
+    if(typeof A.fab==='function')L.push({label:'Quick add',icon:'plus',fn:()=>setTimeout(A.fab,40)});
+    L.push({label:'Trophies',icon:'trophy',fn:()=>setTimeout(()=>A.openTrophies(),40)});
+    L.push({label:'Theme colour',icon:'wave',fn:()=>setTimeout(()=>A.openTheme(),40)});
+    L.push({label:S().sound!==false?'Mute sounds':'Turn sounds on',icon:S().sound!==false?'sndOff':'sndOn',fn:()=>A.toggleSound()});
+    L.push({label:'System Update',icon:'save',fn:()=>setTimeout(()=>this.update(),40)});
+    L.push({label:'Turn Off System',icon:'power',fn:()=>setTimeout(()=>this.offAsk(),40)});
+    openOpts(`${d.getHours()%12||12}:${pad(d.getMinutes())} ${d.getHours()<12?'AM':'PM'}`,L)},
+  /* the code */
+  code(k){this.buf.push(k);if(this.buf.length>10)this.buf.shift();const cl=$('#cheatLine');if(cl)cl.textContent=this.buf.map(x=>({up:'↑',down:'↓',left:'←',right:'→',b:'B',a:'A'})[x]||'').join(' ');
+    if(this.buf.join(',')==='up,up,down,down,left,right,left,right,b,a'){this.buf=[];setTimeout(()=>this.konami(),120)}},
+  konami(){const s=S();const first=!s.secret;s.secret=true;saveS();this.secret();Waves.flash();setTimeout(()=>Waves.flash(),350);
+    if(first){award('konami');setTimeout(()=>toast('Secret themes unlocked','ok','Midnight and Vapor are in Theme colour'),900)}else{Snd.play('done');toast('Code accepted','ok','Secret themes are already yours')}
+    const cl=$('#cheatLine');if(cl)cl.textContent='Code accepted'},
+  secret(){if(this._sec)return;try{if(!Store.ready||!S().secret)return}catch(e){return}this._sec=1;THEMES.push({id:'midnight',n:'Midnight',c:'#43577c',secret:1},{id:'vapor',n:'Vapor',c:'#b04ad6',secret:1})},
+  /* screensaver */
+  poke(){if(!this.inited)return;clearTimeout(this.ssT);let off=false;try{off=S().saver===false}catch(e){}if(off)return;this.ssT=setTimeout(()=>this.ssStart(),120000)},
+  ssStart(){const a=document.activeElement;if(document.hidden||this.ssOn||$('.psoff')||$('#safe')||!$('#sheet').hidden||!$('#opts').hidden||(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))||(view.panel&&view.panel.type==='player')){this.poke();return}
+    this.ssOn=true;let v=$('#ssv');if(!v){v=document.createElement('div');v.id='ssv';v.className='ssv';v.setAttribute('aria-hidden','true');document.body.appendChild(v)}this.ssPaint();document.body.classList.add('ss');this.ssIv=setInterval(()=>this.ssPaint(),1000);this.hints();setTimeout(()=>{if(this.ssOn)award('idle')},3000)},
+  ssPaint(){const v=$('#ssv');if(!v)return;const d=new Date(),h=d.getHours();let run='';
+    try{const r=typeof timerRun==='function'?timerRun():null;if(r)run=`<div class="ssv-r"><i class="dotp"></i>${esc(catInfo(r.cid).short)} · ${fmtHMS(Date.now()-r.start)}</div>`}catch(e){}
+    try{if(!run&&typeof toolsDoc==='function'){const f=toolsDoc().focus;if(f&&f.run)run=`<div class="ssv-r"><i class="dotp"></i>${f.run.mode==='break'?'Break':'Focus'} · ${fmtMS(f.run.endAt-Date.now())}</div>`}}catch(e){}
+    v.innerHTML=`<div class="ssv-t">${h%12||12}:${pad(d.getMinutes())}<small>${h<12?'AM':'PM'}</small></div><div class="ssv-d">${d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}</div>${run}`},
+  wake(){if(!this.ssOn)return false;this.ssOn=false;clearInterval(this.ssIv);document.body.classList.remove('ss');this.poke();this.hints();return true},
+  /* turn off */
+  offAsk(){openOpts('Turn off the system?',[{label:'Yes',icon:'power',fn:()=>setTimeout(()=>this.off(),60)},{label:'No',icon:'back',fn:()=>{}}])},
+  off(){this.hide();const o=document.createElement('div');o.className='psoff';o.innerHTML='<div class="psoff-t">Touch to turn on</div><i class="psoff-led"></i>';document.body.appendChild(o);Snd.play('back');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>o.classList.add('go')));setTimeout(()=>{if(o.isConnected&&!o.dataset.on)beep(980,.4,.05)},1500);o.addEventListener('click',()=>this.powerOn())},
+  powerOn(){const o=$('.psoff');if(!o||o.dataset.on)return;o.dataset.on='1';o.classList.add('on');Snd.init();if(Snd.ctx&&Snd.ctx.state==='suspended')Snd.ctx.resume();beep(1250,.14,.05);
+    setTimeout(()=>{Snd.play('boot');Waves.flash();o.classList.add('out');setTimeout(()=>{o.remove();award('off')},1300)},700)},
+  /* safe mode */
+  safe(){if($('#safe'))return;closeSheet(true);const o=document.createElement('div');o.id='safe';o.className='safe';
+    o.innerHTML=`<div class="safe-in"><div class="safe-h">Safe Mode</div><p>Select an option.</p><div class="safe-l">
+      <button data-act="psSafeGo" data-k="restart">1. Restart System</button><button data-act="psSafeGo" data-k="defaults">2. Restore Default Settings</button>
+      <button data-act="psSafeGo" data-k="rebuild">3. Rebuild Database</button><button data-act="psSafeGo" data-k="exit">4. Exit Safe Mode</button></div><p class="safe-msg" id="safeMsg"></p></div>`;
+    document.body.appendChild(o);beep(1200,.12,.05);setTimeout(()=>award('safe'),1200);this.after()},
+  /* system update */
+  update(){openSheet(`<div class="sh-h"><div class="sh-t">System Update</div><button class="sh-x" data-act="closeSheet">Close</button></div><div class="psup"><p id="upMsg">Checking for an update</p><div class="psbar ind" id="upBar"><i></i></div><p class="muted small" id="upSub">Version ${APP_VER} is installed</p><div class="btns" id="upBtns"></div></div>`);
+    const url=location.href.split('#')[0].split('?')[0],t0=Date.now();const wait=ms=>new Promise(r=>setTimeout(r,ms));
+    fetch(url+'?update='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject(r.status)).then(async txt=>{const m=txt.match(/const APP_VER='([\d.]+)'/);await wait(Math.max(0,1500-(Date.now()-t0)));const bar=$('#upBar');if(!bar)return;if(!m)throw 0;bar.classList.remove('ind');const nv=m[1];award('update');
+      if(parseFloat(nv)>parseFloat(APP_VER)){$('#upMsg').textContent=`A newer version (${nv}) is available.`;$('#upSub').textContent='Your data stays as it is.';$('#upBtns').innerHTML='<button class="btn pri" data-act="psUpdGo">Update now</button>';Snd.play('option');this.after()}
+      else{bar.querySelector('i').style.width='100%';$('#upMsg').textContent='The latest version of the system software is already installed.';$('#upSub').textContent=`System software version ${APP_VER}`;Snd.play('done')}})
+    .catch(async()=>{await wait(Math.max(0,1200-(Date.now()-t0)));const b=$('#upBar');if(!b)return;b.classList.remove('ind');$('#upMsg').textContent='Could not check right now. Try again when you are online.';$('#upSub').textContent='(80710102)';Snd.play('err')})},
+  /* sixaxis waves */
+  tiltStart(ask){if(this.tiltOn)return true;const go=()=>{this.tiltOn=true;this._ori=e=>{if(e.gamma==null)return;Waves.tilt(Math.max(-1,Math.min(1,e.gamma/35)),Math.max(-1,Math.min(1,((e.beta==null?50:e.beta)-50)/35)))};addEventListener('deviceorientation',this._ori)};
+    const D=window.DeviceOrientationEvent;if(D&&typeof D.requestPermission==='function'){if(!ask)return false;D.requestPermission().then(r=>{if(r==='granted')go();else toast('Motion access is off','err','Allow it in iPhone Settings for this app')}).catch(()=>{});return true}if(D){go();return true}return false},
+  tiltStop(){if(this._ori)removeEventListener('deviceorientation',this._ori);this._ori=null;this.tiltOn=false;Waves.tilt(0,0)},
+  onKey(e){if(this.ssOn){this.wake();e.preventDefault();e.stopImmediatePropagation();return}this.poke();
+    const bt=this.booting();if(bt){if(e.key==='Enter'||e.key===' '){e.preventDefault();bt.click()}return}
+    if($('.psoff')){e.preventDefault();this.powerOn();return}
+    const a=document.activeElement,typing=a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
+    const k=e.key,D={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+    if(D[k]){e.preventDefault();e.stopImmediatePropagation();this.dir(D[k],'key');return}
+    const lk=k.length===1?k.toLowerCase():k;if(lk==='b'||lk==='a')this.code(lk);
+    if((k==='Enter'||k===' ')&&this.mode&&this.el&&this.el.isConnected){e.preventDefault();e.stopImmediatePropagation();this.btn('cross');return}
+    if(k==='Escape'&&$('#safe')){e.stopImmediatePropagation();this.back();return}
+    if(k==='Backspace'){e.preventDefault();this.back();return}
+    if(lk==='t'){e.preventDefault();this.menu();return}
+    if(lk==='n'&&typeof A.fab==='function'){e.preventDefault();A.fab();return}
+    if(k==='/'&&typeof A.search==='function'){e.preventDefault();A.search();return}},
+  init(){if(this.inited)return;this.inited=true;
+    ['clock','clockface'].forEach(id=>{const e=$('#'+id);if(e){e.dataset.act='psMenu';e.setAttribute('role','button');e.setAttribute('aria-label','Menu');e.style.cursor='pointer'}});
+    this.secret();this.hints();this.poke();
+    try{if(S().tilt){if(!this.tiltStart(false))addEventListener('pointerdown',()=>this.tiltStart(true),{once:true})}}catch(e){}
+    const h=new Date().getHours();if(h>=4&&h<7)setTimeout(()=>award('bird'),3200);
+    if(this.padLater){this.padLater=false;setTimeout(()=>award('pad'),1500)}
+    if(this.safeReq)setTimeout(()=>this.safe(),1000)}
+};
+/* keep focus highlight in step with re-renders and layers */
+{const _r=render;render=function(){_r.apply(this,arguments);Psx.after()}}
+{const _rp=renderPanel;renderPanel=function(){_rp.apply(this,arguments);Psx.after()}}
+{const _os=openSheet;openSheet=function(){_os.apply(this,arguments);Psx.after()}}
+{const _oo=openOpts;openOpts=function(){_oo.apply(this,arguments);Psx.after()}}
+{const _cs=closeSheet;closeSheet=function(){_cs.apply(this,arguments);Psx.after()}}
+{const _g=goCat;goCat=function(i){const c=view.cat;_g.apply(this,arguments);if(view.cat!==c){delete Psx.mem.col;Psx.el=null;Psx.after()}}}
+{const _at=applyTheme;applyTheme=function(){Psx.secret();_at.apply(this,arguments)}}
+addEventListener('gamepadconnected',e=>Pad.connect(e.gamepad));
+addEventListener('gamepaddisconnected',()=>setTimeout(()=>{if(!Pad.gp())Pad.drop()},60));
+addEventListener('keydown',e=>Psx.onKey(e),true);
+addEventListener('pointerdown',e=>{if(Psx.ssOn){Psx.wake();Psx.swallow=Date.now();e.preventDefault();e.stopPropagation();return}Psx.poke();if(Psx.mode)Psx.hide()},true);
+addEventListener('click',e=>{if(Date.now()-Psx.swallow<700){e.preventDefault();e.stopImmediatePropagation()}},true);
+addEventListener('wheel',()=>Psx.poke(),{passive:true});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){Psx.wake();Psx.poke()}});
+/* hold the boot screen for Safe Mode, like holding the power button */
+(()=>{const b=$('#boot');if(!b)return;let t=0;b.addEventListener('pointerdown',()=>{clearTimeout(t);t=setTimeout(()=>{Psx.safeReq=true;Snd.init();beep(1200,.12,.06);setTimeout(()=>beep(1200,.12,.06),260);Feel.tick(2);b.classList.add('safe-armed')},2600)});['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,()=>clearTimeout(t)))})();
+
+/* ---------- System rows and actions ---------- */
+function ps3SettingsRows(){const s=S();const g=Pad.on?Pad.gp():null;
+  return `<div class="row" style="cursor:default"><span class="row-ic">${ico('pad')}</span><span class="row-main"><span class="row-t">Vibration</span><span class="row-s">Little taps on your iPhone and rumble on a controller</span></span>${tog(s.haptics!==false,'psHaptic')}</div>
+  <div class="row" style="cursor:default"><span class="row-ic">${ico('wave')}</span><span class="row-main"><span class="row-t">Screensaver</span><span class="row-s">After 2 minutes idle, just the waves and the clock</span></span>${tog(s.saver!==false,'psSaver')}</div>
+  <div class="row" style="cursor:default"><span class="row-ic">${ico('wave')}</span><span class="row-main"><span class="row-t">SIXAXIS waves</span><span class="row-s">Tilt your phone and the waves follow</span></span>${tog(!!s.tilt,'psTilt')}</div>
+  ${rowHtml({act:'psPad',icon:'pad',t:'Controller',s:g?`Connected · ${(g.id||'').replace(/\(.*?\)/g,'').trim().slice(0,30)||'Ready'}`:'Pair a PlayStation controller and play the menus'})}`}
+function ps3SystemRows(){const s=S();
+  return `<section><div class="lbl">System</div><div class="list">
+  ${rowHtml({act:'psUpdate',icon:'save',t:'System Update',s:'Check for a newer version'})}
+  ${rowHtml({act:'psInfo',icon:'chip',t:'System Software',s:`Version ${APP_VER}`})}
+  ${s.debug?rowHtml({act:'psDebug',icon:'tools',iconCls:'acc',t:'Debug Settings',s:'Saved data utility, device info and cheat codes'}):''}
+  ${rowHtml({act:'psOffAsk',icon:'power',t:'Turn Off System'})}</div></section>`}
+A.psMenu=()=>Psx.menu();
+A.psUpdate=()=>Psx.update();
+A.psUpdGo=()=>{const i=$('#upBar i');if(!i)return;$('#upBtns').innerHTML='';$('#upMsg').textContent='Downloading';let p=0;const iv=setInterval(()=>{p=Math.min(100,p+6+Math.random()*12);i.style.width=p+'%';const sb=$('#upSub');if(sb)sb.textContent=Math.floor(p)+'%';if(p>=100){clearInterval(iv);const m=$('#upMsg');if(m)m.textContent='Update complete. The system will restart.';Snd.play('done');setTimeout(()=>location.reload(),1300)}},130)};
+A.psOffAsk=()=>Psx.offAsk();
+A.psHaptic=()=>{const s=S();s.haptics=s.haptics===false;saveS();Snd.play('check');render()};
+A.psSaver=()=>{const s=S();s.saver=s.saver===false;saveS();Psx.poke();Snd.play('check');render()};
+A.psTilt=()=>{const s=S();s.tilt=!s.tilt;saveS();if(s.tilt)Psx.tiltStart(true);else Psx.tiltStop();Snd.play('check');render()};
+A.psInfo=el=>{const s=S();if(s.debug){Snd.play('tick');toast('Debug Settings are already on','','Find them right under this');return}const now=Date.now();if(now-Psx.tapT>2500)Psx.taps=0;Psx.tapT=now;Psx.taps++;Snd.play('tick');const left=7-Psx.taps;
+  const old=$('#toasts [data-k="dbg"]');if(old)old.remove();
+  if(left<=0){s.debug=true;saveS();Psx.taps=0;Waves.flash();award('debug');setTimeout(()=>toast('Debug Settings unlocked','ok','A new row is under System'),700);render();return}
+  if(Psx.taps>=3){toast(`${left} more ${left===1?'tap':'taps'}`,'',left===1?'Almost there':'Keep going');const t=$('#toasts').lastElementChild;if(t)t.dataset.k='dbg'}};
+A.psDebugOff=()=>{S().debug=false;saveS();closeSheet(true);toast('Debug Settings hidden','','Tap System Software 7 times to bring them back');render()};
+A.psSafe=()=>Psx.safe();
+A.psCode=el=>{Snd.play('tick');Psx.code(el.dataset.k)};
+A.psSafeGo=el=>{const k=el.dataset.k,msg=t=>{const m=$('#safeMsg');if(m)m.textContent=t};
+  if(k==='restart'){msg('Restarting');beep(1200,.12,.05);setTimeout(()=>location.reload(),700);return}
+  if(k==='exit'){Psx.back();return}
+  if(k==='defaults'){if(!el.dataset.armed){el.dataset.armed='1';msg('Press it again to restore default settings. Your data and trophies stay.');Snd.play('err');return}delete el.dataset.armed;const s=S();['theme','sound','boot','haptics','saver','tilt'].forEach(x=>delete s[x]);saveS();Psx.tiltStop();applyTheme();msg('Default settings restored.');Snd.play('done');return}
+  if(k==='rebuild'){let n=0,fixed=0;for(const p in Store.data){const d=Store.data[p];if(Store.mode!=='cloud'&&(d==null||(typeof d==='object'&&!Array.isArray(d)&&!Object.keys(d).length))){delete Store.data[p];fixed++}else if(d)n++}if(Store.mode!=='cloud')Store.saveLocal();
+    let pc=0;const iv=setInterval(()=>{pc=Math.min(100,pc+9);msg(`Rebuilding database ${pc}%`);if(pc>=100){clearInterval(iv);msg(`Done. ${n} saves checked${fixed?`, ${fixed} empty ones cleared`:''}.`);Snd.play('done')}},90)}};
+A.psPad=()=>{const g=Pad.on?Pad.gp():null;const R=(gl,t)=>`<div><span>${gl}</span><span>${t}</span></div>`;
+  openSheet(`<div class="sh-h"><div class="sh-t">Controller</div><button class="sh-x" data-act="closeSheet">Close</button></div>
+  <p class="muted small" style="margin:0 0 12px">${g?'Connected and ready.':'Pair it once: hold PS and Share (Create on a DualSense) until the light flashes, then pick it in iPhone Settings, Bluetooth. Press any button here and it connects.'}</p>
+  <div class="sysinfo padmap">${R('D-pad or left stick','Move')}${R(GL.cross,'Select')}${R(GL.circle,'Back')}${R(GL.tri+' or PS','Menu')}${typeof A.fab==='function'?R(GL.sq,'Quick add'):''}${R('L1 and R1','Switch tabs')}${R('L2 and R2','Page up and down')}${R('Right stick','Scroll and move the waves')}${typeof A.search==='function'?R('Start','Search'):''}${R('Select','Home')}</div>
+  <div class="lbl" style="margin-top:16px">On a laptop keyboard</div><div class="sysinfo padmap">${R('<kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>','Move')}${R('<kbd>Enter</kbd>','Select')}${R('<kbd>Esc</kbd>','Back')}${R('<kbd>T</kbd>','Menu')}${typeof A.fab==='function'?R('<kbd>N</kbd>','Quick add')+R('<kbd>/</kbd>','Search'):''}</div>`)};
+A.psDebug=()=>{const g={};let tot=0;for(const p in Store.data){const d=Store.data[p];if(!d)continue;const c=p.split('/')[0];const n=JSON.stringify(d).length;g[c]=g[c]||{n:0,b:0};g[c].n++;g[c].b+=n;tot+=n}
+  const NM={codex:'Core and settings',clients:'Clients',weeks:'Content weeks',time:'Time log',biz:'New biz',creative:'Creative',reviews:'Reviews',ko:'Profile and plan',skate:'Skate',lift:'Lift'};const kb=b=>b<1024?b+' B':(b/1024).toFixed(1)+' KB';
+  const sa=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;const gp=Pad.on?Pad.gp():null;
+  openSheet(`<div class="sh-h"><div class="sh-t">Debug Settings</div><button class="sh-x" data-act="closeSheet">Close</button></div>
+  <div class="lbl">Saved data utility</div><div class="sysinfo">${Object.keys(g).sort((a,b)=>g[b].b-g[a].b).map(k=>`<div><span>${esc(NM[k]||k)} · ${g[k].n}</span><span>${kb(g[k].b)}</span></div>`).join('')}<div><span><b>Total</b></span><span><b>${kb(tot)}</b></span></div></div>
+  <div class="lbl" style="margin-top:16px">Device</div><div class="sysinfo"><div><span>Screen</span><span>${innerWidth} × ${innerHeight} at ${devicePixelRatio}x</span></div><div><span>Running as</span><span>${sa?'Home screen app':'Browser tab'}</span></div><div><span>Controller</span><span>${gp?esc((gp.id||'Connected').replace(/\(.*?\)/g,'').trim().slice(0,28)):'None'}</span></div><div><span>Storage</span><span id="dbgPersist">Checking</span></div><div><span>Sync</span><span>${typeof Sync!=='undefined'&&Sync.on()?'GitHub':'Off'}</span></div><div><span>System software</span><span>${APP_VER}</span></div></div>
+  <div class="lbl" style="margin-top:16px">Cheat codes</div><div class="cheat">${['up','down','left','right','b','a'].map(k=>`<button data-act="psCode" data-k="${k}" aria-label="${k}">${{up:'↑',down:'↓',left:'←',right:'→',b:'B',a:'A'}[k]}</button>`).join('')}</div><p class="muted small" id="cheatLine" style="min-height:18px;margin:8px 0 0"></p>
+  <div class="btns" style="margin-top:12px"><button class="btn" data-act="psSafe">${ico('power')}Safe Mode</button><button class="btn" data-act="psDebugOff">Hide these</button></div>`);
+  Psx.buf=[];try{navigator.storage.persisted().then(p=>{const e=$('#dbgPersist');if(e)e.textContent=p?'Protected':'Normal'})}catch(e){const x=$('#dbgPersist');if(x)x.textContent='Normal'}};
+
+const SYNCCFG={app:'rrg-codex',file:'codex.json',key:'rrgcodex',name:'RRG CODEX',fresh:1500,ok:/^(codex|clients|weeks|time|biz|creative|reviews)\/[A-Za-z0-9_\-.~:@+]+$/};
+/* ================= GitHub sync (standalone build only) ================= */
+const Sync=(()=>{
+  const C=SYNCCFG,LS='rrg.sync',MK=C.key+'.sync';
+  const b64e=s=>{const u=new TextEncoder().encode(s);let b='';for(let i=0;i<u.length;i+=0x8000)b+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(b)};
+  const b64d=s=>{const b=atob(String(s).replace(/\s/g,''));const u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder().decode(u)};
+  const dev=(()=>{const u=navigator.userAgent;return /iPhone/.test(u)?'iPhone':/iPad/.test(u)?'iPad':/Android/.test(u)?'Android':/Windows/.test(u)?'Laptop':/Macintosh/.test(u)?(navigator.maxTouchPoints>1?'iPad':'Mac'):'Browser'})();
+  const loadMeta=()=>{try{const m=JSON.parse(lsGet(MK)||'null');if(m&&m.mt&&m.base)return m}catch(e){}return{mt:{},base:{},last:0,err:'',init:false}};
+  const S_={meta:loadMeta(),pend:null,busy:false,again:false,pushing:false,leaving:false,t:0,lastRun:0,toasted:'',dev,
+    stored(){try{const c=JSON.parse(lsGet(LS)||'null');return c&&c.token&&c.repo?c:null}catch(e){return null}},
+    cfg(){return this.pend||this.stored()},
+    on(){return !!this.stored()},
+    saveMeta(){lsSet(MK,JSON.stringify(this.meta))},
+    mark(p){if(!this.on()||!C.ok.test(p))return;this.meta.mt[p]=Date.now();this.saveMeta();this.schedule(2500)},
+    schedule(ms=2500){clearTimeout(this.t);this.t=setTimeout(()=>this.run(),ms)},
+    dirty(){const M=this.meta;return Object.keys(M.mt).some(p=>M.mt[p]>(M.base[p]||0))},
+    async req(m,path,body){const c=this.cfg();const ac=new AbortController();const to=setTimeout(()=>ac.abort(),20000);const str=body?JSON.stringify(body):undefined;
+      try{return await fetch(`https://api.github.com/repos/${c.repo}/${path}`,{method:m,cache:'no-store',signal:ac.signal,keepalive:!!(str&&this.leaving&&str.length<60000),headers:Object.assign({Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json'},str?{'Content-Type':'application/json'}:{}),body:str})}catch(e){const x=new Error('net');x.name='NetErr';throw x}finally{clearTimeout(to)}},
+    why(r){const s=r.status;if(s===401)return 'Sync key not accepted. It may have expired, make a new one.';if(s===403)return r.headers.get('x-ratelimit-remaining')==='0'?'GitHub is busy. Will retry soon.':'The key can not write to that repo. Check Contents is set to Read and write.';if(s===404)return 'Repo not found. Check the name and that the key includes it.';return 'GitHub error '+s},
+    async getRemote(){const r=await this.req('GET',`contents/${C.file}?_=${Date.now()}`);
+      if(r.status===404||r.status===409)return{sha:null,body:null};if(!r.ok)throw new Error(this.why(r));
+      const j=await r.json();let c=j.content;if(!c||j.encoding!=='base64'){const b=await this.req('GET',`git/blobs/${j.sha}`);if(!b.ok)throw new Error(this.why(b));c=(await b.json()).content}
+      let body=null;try{body=JSON.parse(b64d(c))}catch(e){}if(body&&body.app&&body.app!==C.app)throw new Error(`${C.file} in that repo is not ${C.name} data`);
+      return{sha:j.sha,body}},
+    merge(r,l){if(!r||!l||typeof r!=='object'||typeof l!=='object'||Array.isArray(r)||Array.isArray(l))return l??r;const o=Object.assign({},r,l);
+      const idArr=a=>Array.isArray(a)&&a.every(x=>x&&typeof x==='object'&&x.id!=null);
+      for(const k in r){const a=r[k],b=l[k];if(idArr(a)&&idArr(b)&&(a.length||b.length)){const m=new Map();a.forEach(x=>m.set(x.id,x));b.forEach(x=>m.set(x.id,x));o[k]=[...m.values()]}}return o},
+    sheetOpen(){const a=$('#sheet'),b=$('#opts');return(a&&!a.hidden)||(b&&!b.hidden)},
+    /* mode: undefined (normal), 'combine', 'remote' (GitHub wins), 'local' (this device wins) */
+    size(){return Object.keys(Store.data).filter(p=>Store.data[p]&&!/\/settings$/.test(p)).reduce((n,p)=>n+JSON.stringify(Store.data[p]).length,0)},
+    /* first sync for this app on this device: never let an empty side wipe a full one */
+    async first(){try{const rem=await this.getRemote();return this.run(!rem.body?'local':this.size()<C.fresh?'remote':'combine')}catch(e){this.meta.err=(e&&e.name==='NetErr')?'Offline. Will sync when you are back online.':(e&&e.message)||'Sync failed';this.saveMeta();this.paint();this.schedule(30000);return false}},
+    async run(mode){
+      if(!mode&&!this.on())return false;
+      if(!mode&&!this.meta.init&&!this.busy)return this.first();
+      if(this.busy){if(!mode)this.again=true;return false}
+      if(!mode&&this.sheetOpen()&&!this.leaving){this.schedule(3000);return false}
+      this.busy=true;this.lastRun=Date.now();let res=false,pulled=0;
+      try{
+        for(let attempt=0;attempt<4;attempt++){
+          const rem=await this.getRemote();const R=rem.body||{};const rd=R.data||{},rmt=R.mt||{};const M=this.meta;const now=Date.now();
+          const paths=new Set([...Object.keys(Store.data),...Object.keys(M.mt),...Object.keys(rd),...Object.keys(rmt)]);
+          const out={data:{},mt:{}},adopt={};let need=!rem.body,changed=false;
+          for(const p of paths){if(!C.ok.test(p))continue;
+            const ld=Store.data[p]??null,lt=M.mt[p],rt=rmt[p]||0,base=M.base[p]||0,rv=(p in rd)?rd[p]:null;let take;
+            if(mode==='remote')take=(rv!=null||rt)?'remote':'local';
+            else if(mode==='local')take=(ld!=null||lt)?'local':'remote';
+            else if(mode==='combine')take=(ld!=null&&rv!=null)?'merge':(rv!=null||rt&&ld==null&&!lt)?'remote':'local';
+            else if(lt==null)take=(rv!=null||rt)?'remote':'local';
+            else{const ldirty=lt>base,rch=rt>base;take=ldirty&&rch?'merge':rch?'remote':'local'}
+            let v,t;
+            if(take==='remote'){v=rv;t=rt||1;adopt[p]=v}
+            else if(take==='merge'){v=(ld!=null&&rv!=null)?this.merge(rv,ld):(ld??rv);t=now;adopt[p]=v;M.mt[p]=t}
+            else{if(ld==null&&lt==null)continue;v=ld;t=(lt==null||mode==='local'||mode==='combine')?now:lt;M.mt[p]=t}
+            if(v!=null)out.data[p]=v;out.mt[p]=t;if(t!==rt||(v==null)!==(rv==null))need=true}
+          for(const p in adopt){const v=adopt[p];const cur=Store.data[p]??null;if(JSON.stringify(cur)===JSON.stringify(v??null)){M.mt[p]=out.mt[p];continue}
+            if(v==null)delete Store.data[p];else Store.data[p]=JSON.parse(JSON.stringify(v));M.mt[p]=out.mt[p];changed=true;pulled++}
+          if(changed){Store.saveLocal();this.refresh()}
+          if(!need){for(const p in out.mt)M.base[p]=out.mt[p];M.last=Date.now();M.err='';M.init=true;this.saveMeta();res=true;break}
+          this.saveMeta();this.pushing=true;this.paint();
+          const body={app:C.app,v:3,at:new Date().toISOString(),by:dev,mt:out.mt,data:out.data};
+          const r=await this.req('PUT',`contents/${C.file}`,Object.assign({message:`${C.name} sync from ${dev}`,content:b64e(JSON.stringify(body))},rem.sha?{sha:rem.sha}:{}));
+          this.pushing=false;this.paint();
+          if(r.status===409||r.status===422){await new Promise(z=>setTimeout(z,400+Math.random()*600));continue}
+          if(!r.ok)throw new Error(this.why(r));
+          for(const p in out.mt)M.base[p]=out.mt[p];M.last=Date.now();M.err='';M.init=true;this.saveMeta();res=true;break}
+        if(!res)throw new Error('GitHub kept changing. Will retry.');
+      }catch(e){this.pushing=false;const off=e&&(e.name==='AbortError'||e.name==='NetErr');const msg=off?'Offline. Will sync when you are back online.':(e&&e.message)||'Sync failed';this.meta.err=msg;this.saveMeta();
+        if(!off&&this.toasted!==msg&&!this.leaving){this.toasted=msg;toast('Sync problem','err',msg)}if(this.on())this.schedule(off?30000:60000)}
+      finally{this.busy=false;this.paint();if(this.again){this.again=false;this.schedule(800)}}
+      this.pulled=pulled;return res},
+    refresh(){try{applyTheme()}catch(e){}try{renderStatus()}catch(e){}requestRender()},
+    paint(){const el=$('#saving');if(!el)return;if(this.pushing){el.hidden=false;const s=el.querySelector('span');if(s)s.textContent='Syncing'}else{const s=el.querySelector('span');if(s)s.textContent='Saving. Do not close the app.';el.hidden=!(Store.mode==='cloud'&&Store.dirty.size>0)}},
+    start(){if(this._st)return;this._st=1;
+      document.addEventListener('visibilitychange',()=>{if(!this.on())return;if(document.hidden){if(this.dirty()){this.leaving=true;this.run().finally(()=>{this.leaving=false})}}else if(Date.now()-this.lastRun>8000)this.run()});
+      addEventListener('online',()=>{if(this.on())this.run()});
+      setInterval(()=>{if(this.on()&&!document.hidden&&Date.now()-this.lastRun>50000)this.run()},15000);
+      if(this.on())this.run()},
+    ago(t){if(!t)return 'not yet';const s=(Date.now()-t)/1000;return s<60?'just now':s<3600?`${Math.floor(s/60)} min ago`:s<86400?`${Math.floor(s/3600)} h ago`:`${Math.floor(s/86400)} days ago`},
+    code(){const c=this.stored();return c?'rrgsync:'+btoa(JSON.stringify({repo:c.repo,token:c.token})):''},
+    off(){try{localStorage.removeItem(LS);localStorage.removeItem(MK)}catch(e){}this.meta={mt:{},base:{},last:0,err:'',init:false};this.pend=null}
+  };
+  return S_})();
+/* every save stamps the doc and queues a sync */
+{const _t=Store.touch;Store.touch=function(p){_t.call(this,p);if(this.mode!=='cloud'&&!this.readOnly)Sync.mark(p)}}
+{const _u=updSaving;updSaving=function(){if(Sync.pushing)return Sync.paint();_u()}}
+function syncRows(){
+  if(!Sync.on())return rowHtml({act:'syncSetup',icon:'link',iconCls:'acc',t:'Sync with your laptop',s:'This device only right now. Tap to set up free sync'});
+  const M=Sync.meta,c=Sync.stored();const bad=M.err&&!/^Offline/.test(M.err);
+  return rowHtml({act:'syncMenu',iconHtml:ico('save'),iconCls:bad?'warn':'ok',t:bad?'Sync needs a look':'Synced with GitHub',s:M.err?M.err:`${c.repo.split('/')[1]} · ${Sync.ago(M.last)}`})}
+const SYNC_TOKEN_URL='https://github.com/settings/personal-access-tokens/new?name=RRG+sync&description=Sync+for+RRG+CODEX+and+KICKFLIP+2000&expires_in=none&contents=write';
+A.syncSetup=()=>{const own=/\.github\.io$/.test(location.hostname)?location.hostname.split('.')[0]:'';
+  openSheet(`<div class="sh-h"><div class="sh-t">Sync your devices</div><button class="sh-x" data-act="closeSheet">Cancel</button></div><div class="fgrid">
+  <p class="muted small" style="margin:0">Free and private. Your data saves to a private GitHub repo, and every device you connect stays in step. Set it up once:</p>
+  <ol class="syl"><li><a href="https://github.com/new?name=rrg-data&visibility=private" target="_blank" rel="noopener">Make a private repo called rrg-data</a>. Keep it Private, tap Create.</li>
+  <li><a href="${SYNC_TOKEN_URL}" target="_blank" rel="noopener">Make a sync key</a>. Under Repository access pick Only select repositories, then rrg-data. Check Contents says Read and write. Tap Generate and copy the key.</li>
+  <li>Paste it below. On another device or app, paste the same key, or a sync code from Copy sync code.</li></ol>
+  <label class="field"><span>Repo</span><input class="in" id="syRepo" value="${esc(own?own+'/rrg-data':'')}" placeholder="username/rrg-data" autocapitalize="off" autocorrect="off" spellcheck="false"></label>
+  <label class="field"><span>Sync key or sync code</span><input class="in" id="syKey" placeholder="github_pat_..." autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off"></label>
+  <p class="muted small" id="syMsg" style="margin:0"></p>
+  <div class="sh-actions"><span class="sp"></span><button class="btn pri" data-act="syncConnect">Connect</button></div></div>`)};
+A.syncConnect=async el=>{const msg=t=>{const m=$('#syMsg');if(m)m.textContent=t};let repo=($('#syRepo').value||'').trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$|\/$/g,''),token=($('#syKey').value||'').trim();
+  if(/^rrgsync:/.test(token)){try{const o=JSON.parse(atob(token.slice(8)));repo=o.repo;token=o.token}catch(e){msg('That sync code is not complete. Copy it again.');Snd.play('err');return}}
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)){msg('Repo should look like username/rrg-data');Snd.play('err');return}if(token.length<20){msg('Paste the whole key');Snd.play('err');return}
+  if(el)el.disabled=true;msg('Checking');Sync.pend={repo,token};
+  try{const r=await Sync.req('GET','?_='+Date.now());if(!r.ok)throw new Error(Sync.why(r));const j=await r.json();
+    if(j.private===false){Sync.pend=null;msg('That repo is public, so anyone could read your data. Make it private (Settings, bottom of the page) and try again.');Snd.play('err');if(el)el.disabled=false;return}
+    msg('Connected. Reading saved data');const rem=await Sync.getRemote();
+    const commit=async mode=>{lsSet('rrg.sync',JSON.stringify(Sync.pend));Sync.pend=null;Sync.meta={mt:{},base:{},last:0,err:'',init:false};Sync.saveMeta();const ok=await Sync.run(mode);
+      if(ok){Snd.play('done');toast('Sync is on','ok',mode==='local'?'Your data now saves to GitHub':`${Sync.pulled||0} items updated from GitHub`)}else toast('Sync is on','',Sync.meta.err||'It will retry');render()};
+    if(!rem.body){closeSheet(true);await commit('local');return}
+    const size=Sync.size();
+    const when=rem.body.at?new Date(rem.body.at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+    if(size<SYNCCFG.fresh){closeSheet(true);await commit('remote');return}
+    const opts=[{label:'Combine both',icon:'plus',fn:()=>commit('combine')},{label:'Use GitHub data here',icon:'paste',fn:()=>commit('remote')},{label:'Keep this device, replace GitHub',icon:'save',danger:true,fn:()=>commit('local')}];
+    openOpts(`GitHub has data from ${rem.body.by||'another device'}${when?', '+when:''}. This device has data too.`,opts);
+  }catch(e){Sync.pend=null;const off=e&&(e.name==='AbortError'||e.name==='NetErr');msg(off?'Could not reach GitHub. Check your connection.':(e.message||'Could not connect'));Snd.play('err');if(el)el.disabled=false}};
+A.syncMenu=()=>{const c=Sync.stored();openOpts('Sync',[
+  {label:'Sync now',icon:'next',fn:async()=>{const ok=await Sync.run();if(ok)toast('Synced','ok',Sync.pulled?`${Sync.pulled} items updated`:'Everything matches');render()}},
+  {label:'Copy sync code',icon:'copy',fn:()=>copyText(Sync.code(),'Sync code copied. Paste it in the other app.')},
+  {label:'See save history on GitHub',icon:'link',fn:()=>window.open(`https://github.com/${c.repo}/commits`,'_blank')},
+  {label:'Turn off sync on this device',icon:'warn',danger:true,fn:()=>{Sync.off();toast('Sync is off on this device','ok','Your data stays here');render()}}])};
+
 /* ================= boot ================= */
 (async function boot(){try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});applyTheme();Snd.init();
   const bootEl=$('#boot');const showBoot=lsGet('rrgcodex.boot')!=='0';$('#bootTap').hidden=true;$('#bootLoad').hidden=false;
@@ -1681,8 +2096,8 @@ setInterval(()=>{const now=Date.now();document.querySelectorAll('[data-tick]').f
   let db=null;try{db=window.claude&&window.claude.use?await window.claude.use('db'):null}catch(e){db=null}
   if(db){Store.db=db;Store.mode='cloud';Store.subscribe();await Store.waitReady(9000);if(Object.keys(Store.data).length===0)Store.loadLocal('rrgcodex.cache')}
   else{Store.mode='local';Store.loadLocal();Store.markReady()}
-  applyTheme();const s=S();if(!s.docUrl)s.docUrl='';lsSet('rrgcodex.boot',s.boot===false?'0':'1');
-  const enter=()=>{bootEl.classList.add('go');mountExtras();render();setTimeout(()=>{award('boot');checkTrophies()},900);setTimeout(()=>bootEl.remove(),900)};
+  applyTheme();Sync.start();const s=S();if(!s.docUrl)s.docUrl='';lsSet('rrgcodex.boot',s.boot===false?'0':'1');
+  const enter=()=>{bootEl.classList.add('go');mountExtras();Psx.init();render();setTimeout(()=>{award('boot');checkTrophies()},900);setTimeout(()=>bootEl.remove(),900)};
   if(!showBoot||s.boot===false){enter();return}
   $('#bootLoad').hidden=true;$('#bootTap').hidden=false;
   bootEl.addEventListener('click',async()=>{Snd.init();if(Snd.ctx&&Snd.ctx.state==='suspended')Snd.ctx.resume();bootEl.classList.add('lit');Waves.flash();await Snd.ready('boot',900);Snd.play('boot');setTimeout(enter,1500)},{once:true});
