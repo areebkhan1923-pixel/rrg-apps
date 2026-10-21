@@ -1559,9 +1559,9 @@ function dailyBlock(){const d=dailyPicks();const today=d.date;return `<section><
 function tryToday(){const today=ymd(new Date());const h=dayHash(today+'try');const ex=exploreDoc().list.filter(x=>x.status==='totry');const out=[];
   if(ex.length){const x=ex[h%ex.length];out.push(rowHtml({act:'openExplore',data:`data-id="${x.id}"`,icon:'pin',iconCls:'acc',t:`Try: ${x.title}`,s:[kindName(x.kind),x.area].filter(Boolean).join(' · ')||'From your Explore list'}))}
   else{const i=TRY_IDEAS[h%TRY_IDEAS.length];out.push(rowHtml({act:'addTryIdea',data:`data-i="${h%TRY_IDEAS.length}"`,icon:'pin',iconCls:'acc',t:`Idea: ${i.t}`,s:'Tap to add it to Explore'}))}
-  const p=PROMPTS[(h>>4)%PROMPTS.length];out.push(rowHtml({act:'showPrompt',data:`data-i="${PROMPTS.indexOf(p)}"`,icon:'cam',t:`Make: ${p.title}`,s:`${mediaName(p.m)} · ${p.t>=120?'2h+':p.t+' min'} · ${p.out}`}));
-  const wl=filmsDoc().list.filter(f=>f.status==='watchlist');if(wl.length){const f=wl[(h>>8)%wl.length];out.push(rowHtml({act:'openFilm',data:`data-id="${f.id}"`,icon:'film',t:`Watch: ${f.title}`,s:[f.year,f.genre,f.runtime?f.runtime+' min':''].filter(Boolean).join(' · ')}))}
-  const tl=musicDoc().list.filter(m=>m.status==='tolisten');if(tl.length){const m=tl[(h>>12)%tl.length];out.push(rowHtml({act:'openMusic',data:`data-id="${m.id}"`,icon:'music',t:`Listen: ${m.title}`,s:[m.artist,fmtName(m.format)].filter(Boolean).join(' · ')}))}
+  const p=PROMPTS[(h>>>4)%PROMPTS.length];out.push(rowHtml({act:'showPrompt',data:`data-i="${PROMPTS.indexOf(p)}"`,icon:'cam',t:`Make: ${p.title}`,s:`${mediaName(p.m)} · ${p.t>=120?'2h+':p.t+' min'} · ${p.out}`}));
+  const wl=filmsDoc().list.filter(f=>f.status==='watchlist');if(wl.length){const f=wl[(h>>>8)%wl.length];out.push(rowHtml({act:'openFilm',data:`data-id="${f.id}"`,icon:'film',t:`Watch: ${f.title}`,s:[f.year,f.genre,f.runtime?f.runtime+' min':''].filter(Boolean).join(' · ')}))}
+  const tl=musicDoc().list.filter(m=>m.status==='tolisten');if(tl.length){const m=tl[(h>>>12)%tl.length];out.push(rowHtml({act:'openMusic',data:`data-id="${m.id}"`,icon:'music',t:`Listen: ${m.title}`,s:[m.artist,fmtName(m.format)].filter(Boolean).join(' · ')}))}
   return `<section><div class="lbl">Try this today</div><div class="list">${out.join('')}</div></section>`}
 RENDER.world=()=>{const st=stats();const nx=nextUp();const qs=qDoc().list.filter(q=>q.status==='active').slice(0,3);const playing=gamesDoc().list.filter(g=>g.status==='playing').sort((a,b)=>(b.last||0)-(a.last||0)).slice(0,2);
   let h=playerCard();
