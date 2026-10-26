@@ -585,7 +585,7 @@ body.nav-on .hs .gpf,body.nav-on .tabs .gpf,body.nav-on .chips .gpf{box-shadow:i
 
 /* ================= STUDIO LOOK ================= */
 :root{--wc:255,255,255;--kc:0,0,0}
-html[data-look=studio]{--f-ui:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--f-num:"Inter",system-ui,-apple-system,sans-serif;--f-logo:"Inter",system-ui,-apple-system,sans-serif;background:var(--bg)!important}
+html[data-look=studio]{--f-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--f-num:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Arial,sans-serif;--f-logo:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Arial,sans-serif;background:var(--bg)!important}
 html[data-look=studio][data-mode=dark]{--wc:255,255,255;--kc:0,0,0;--bg:#0f1012;--ink:#f2f2f3;--dim:rgba(242,242,243,.64);--faint:rgba(242,242,243,.42);--line:rgba(var(--wc),.1);--line2:rgba(var(--wc),.06);--glass:rgba(var(--wc),.04);--glass2:rgba(var(--wc),.06);--glass3:rgba(var(--wc),.07);--accent:#e5333f;--accent2:#e5333f;--glow:transparent;--ok:#3ccf8e;--warn:#f0b43c;--bad:#ff5d66;
   --t1:#151619!important;--t2:#121315!important;--t3:#0f1012!important;--tglow:transparent!important;--surface:#17181b;--surface2:#1c1d21;--shadow:0 1px 0 rgba(var(--wc),.03)}
 html[data-look=studio][data-mode=light]{--wc:24,24,28;--kc:255,255,255;--bg:#f4f3f0;--ink:#18181c;--dim:rgba(24,24,28,.64);--faint:rgba(24,24,28,.44);--line:rgba(24,24,28,.12);--line2:rgba(24,24,28,.07);--glass:rgba(24,24,28,.03);--glass2:rgba(24,24,28,.05);--glass3:rgba(24,24,28,.06);--accent:#d01f2c;--accent2:#d01f2c;--glow:transparent;--ok:#16a06a;--warn:#c27d00;--bad:#d42a35;
@@ -662,6 +662,9 @@ html[data-look=studio] .tl-d{background:var(--accent)!important}
 html[data-look=studio] .hints{background:var(--surface)!important;color:var(--ink)}
 html[data-look=studio] .scrim{background:rgba(10,10,15,.38)!important}
 html[data-look=studio] .psoff{background:black!important}
+html[data-look=studio] .note-h .sys-btn{margin:-6px 0}
+html[data-look=studio] body{-webkit-text-size-adjust:100%;font-feature-settings:"tnum" 0}
+html[data-look=studio] .fri-title{text-transform:none!important;font-size:30px!important}
 </style>
 </head><body>
 <script>
