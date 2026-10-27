@@ -979,6 +979,7 @@ body.reduce .sl-i.in,body.reduce .sigil.hit,body.reduce .season>.holo{animation:
 .pclip:active{transform:scale(.97)}
 .clipv.sm{max-height:30vh;object-fit:cover}
 .tsugg{flex-wrap:wrap;gap:6px;margin:-2px 0 2px}.tsugg .chip{cursor:pointer}
+.clprev{display:flex;flex-direction:column;align-items:center;gap:6px}.clprev .btn{align-self:center}
 
 /* ================= CONSOLE ERAS ================= */
 #era{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
@@ -3163,12 +3164,12 @@ const TRICKS=['Ollie','Kickflip','Heelflip','Pop shove it','Shove it','Fs 180','
 function clipCard(c){return `<button class="pclip ${c.landed?'land':''}" data-act="clipView" data-id="${c.id}">${c.thumb?`<img src="${c.thumb}" alt="">`:'<i></i>'}<span class="pc-t"><b>${esc(c.name)}</b><small>${c.landed?'Landed · ':''}${fmtDM(parseYmd(c.date))}</small></span></button>`}
 function progWeeks(list){const by={};list.forEach(c=>{const w=clipWeek(c);(by[w]=by[w]||[]).push(c)});return Object.keys(by).map(Number).sort((a,b)=>b-a).map(w=>({w,items:by[w]}))}
 function progBlock(limit){if(!Clips.ready)return '';const L=Clips.meta;const nowW=weekOfDate(ymd(new Date()));const landed=new Set(L.filter(c=>c.landed).map(c=>norm(c.name))).size;const weeks=progWeeks(L).slice(0,limit||99);
-  return `<section class="prog"><div class="lbl-row"><div class="lbl">Progression · week ${nowW}</div><label class="btn sm pri" style="position:relative;overflow:hidden">${ico('cam')}Add clip<input type="file" accept="video/*" data-ch="clipFile" style="position:absolute;inset:0;opacity:0"></label></div>
+  return `<section class="prog"><div class="lbl-row"><div class="lbl">Progression · week ${nowW}</div><button class="btn sm pri" data-act="clipAdd">${ico('cam')}Add clip</button></div>
   ${L.length?`<div class="prog-stats"><span><b class="num">${L.length}</b><small>clips</small></span><span><b class="num">${landed}</b><small>tricks landed</small></span><span><b class="num">${nowW}</b><small>${nowW===1?'week':'weeks'} skating</small></span></div>
   ${weeks.map(g=>`<div class="pweek"><div class="pweek-h"><b>Week ${g.w}</b><small>${weekRange(g.w)}</small></div><div class="pgrid">${g.items.map(clipCard).join('')}</div></div>`).join('')}
   ${progWeeks(L).length>(limit||99)?`<p class="muted small" style="margin:0">Older weeks are in Full journey.</p>`:''}`:`<p class="muted small">Film a trick, give it a name, and it lands in the week you learned it. Your whole journey in one place. Clips stay on this phone.</p>`}</section>`}
 PANELS.prog=()=>{const f=view.progF||'all';const L=Clips.meta.filter(c=>f==='all'||(f==='landed'?c.landed:!c.landed));
-  return{title:'Progression',back:'Skate',body:`<section><div class="seg">${[['all','All'],['landed','Landed'],['working','Working on']].map(([v,l])=>`<button class="${f===v?'on':''}" data-act="progF" data-v="${v}">${l}</button>`).join('')}</div></section>
+  return{title:'Progression',back:'Skate',body:`<section class="btns" style="margin-bottom:8px"><button class="btn pri" data-act="clipAdd">${ico('cam')}Add clip</button></section><section><div class="seg">${[['all','All'],['landed','Landed'],['working','Working on']].map(([v,l])=>`<button class="${f===v?'on':''}" data-act="progF" data-v="${v}">${l}</button>`).join('')}</div></section>
   ${L.length?progWeeks(L).map(g=>`<section class="pweek"><div class="pweek-h"><b>Week ${g.w}</b><small>${weekRange(g.w)}</small></div><div class="pgrid">${g.items.map(clipCard).join('')}</div></section>`).join(''):'<p class="empty">Nothing here yet.</p>'}
   <section class="list">${rowHtml({act:'progStart',icon:'calendar',t:`Started skating ${fmtD(parseYmd(skateStart()))}`,s:'Week 1 starts here. Tap to change'})}</section>`}};
 A.progOpen=()=>openPanel('prog','x');
@@ -3176,11 +3177,21 @@ A.progF=el=>{view.progF=el.dataset.v;Snd.play('tick');renderPanel()};
 A.progStart=()=>openForm({title:'When you started skating',fields:[{key:'d',label:'First day',type:'date',value:skateStart()}],onSave:v=>{if(!v.d)return false;S().skateStart=v.d;saveS();if(view.panel)setTimeout(renderPanel,40)}});
 /* add: pick the video, then name it */
 let _pend=null;
-CH.clipFile=async el=>{const f=el.files&&el.files[0];el.value='';if(!f)return;toast('Opening clip','ok');let t={thumb:'',dur:0};try{t=await videoThumb(f)}catch(e){}_pend={blob:f,type:f.type||'video/mp4',thumb:t.thumb,dur:t.dur};clipForm(null)};
+let _clipIn=null,_clipLast=null;
+function clipInput(){if(_clipIn&&document.body.contains(_clipIn))return _clipIn;const i=document.createElement('input');i.type='file';i.accept='video/*';i.id='clipPicker';i.setAttribute('aria-hidden','true');i.tabIndex=-1;i.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1';
+  const got=()=>{const f=i.files&&i.files[0];if(!f||f===_clipLast)return;_clipLast=f;setTimeout(()=>{i.value='';_clipLast=null},800);clipGot(f)};i.addEventListener('change',got);i.addEventListener('input',got);document.body.appendChild(i);_clipIn=i;return i}
+A.clipAdd=()=>{const i=clipInput();i.value='';Snd.play('open');i.click()};
+CH.clipFile=el=>{const f=el.files&&el.files[0];el.value='';if(f)clipGot(f)};
+function clipGot(f){if(f.type&&!/^video\//.test(f.type)&&!/\.(mov|mp4|m4v|webm|3gp)$/i.test(f.name||'')){toast('That is not a video','err');return}
+  _pend={blob:f,type:f.type||'video/mp4',thumb:'',dur:0};if(f.size>700*1048576)toast('Big video','ok','Saving might take a moment. Trimming it in Photos first helps');
+  closeSheet(true);setTimeout(()=>clipForm(null),30);
+  videoThumb(f).then(t=>{if(_pend&&_pend.blob===f){if(t.thumb)_pend.thumb=t.thumb;if(t.dur)_pend.dur=t.dur}}).catch(()=>{})}
+/* grab a frame from the preview that is already playing (iPhone friendly) */
+function grabFrame(v){try{if(!v||v.readyState<2||!v.videoWidth)return '';const W=320,H=Math.round(W*v.videoHeight/v.videoWidth);const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(v,0,0,W,H);return c.toDataURL('image/jpeg',.7)}catch(e){return ''}}
 function clipForm(r){const isNew=!r;const v=r||{name:'',date:ymd(new Date()),week:null,landed:true,note:''};const wk=v.week||weekOfDate(v.date);const maxW=Math.max(weekOfDate(ymd(new Date()))+1,wk);
   const used=[...new Set(Clips.meta.map(c=>c.name))];const sugg=[...used,...TRICKS.filter(t=>!used.some(u=>norm(u)===norm(t)))].slice(0,14);const prev=isNew?(_pend&&_pend.blob?URL.createObjectURL(_pend.blob):''):'';
   openSheet(`<div class="sh-h"><div class="sh-t">${isNew?'New clip':'Edit clip'}</div><button class="sh-x" data-act="closeSheet">Cancel</button></div>
-  ${prev?`<video class="clipv sm" src="${prev}" playsinline muted loop autoplay></video>`:''}
+  ${prev?`<div class="clprev"><video id="clPrev" class="clipv sm" src="${prev}" playsinline muted loop autoplay preload="auto"></video><button type="button" class="btn sm ghost" data-act="clipAdd">Pick a different video</button></div>`:''}
   <div class="fgrid" style="margin-top:12px"><label class="field"><span>Trick</span><input class="in" id="clName" value="${esc(v.name)}" placeholder="Soccer flip" autocomplete="off" autocapitalize="sentences"></label>
   <div class="chips tsugg">${sugg.map(t=>`<button type="button" class="chip" data-act="clSug" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
   <div class="f2"><label class="field"><span>Week of skating</span><select class="in" id="clWeek">${Array.from({length:maxW},(_,i)=>i+1).map(n=>`<option value="${n}" ${n===wk?'selected':''}>Week ${n}</option>`).join('')}</select></label><label class="field"><span>Date</span><input class="in" id="clDate" type="date" value="${esc(v.date)}"></label></div>
@@ -3188,13 +3199,16 @@ function clipForm(r){const isNew=!r;const v=r||{name:'',date:ymd(new Date()),wee
   <label class="field"><span>Note</span><input class="in" id="clNote" value="${esc(v.note||'')}" placeholder="First clean one, back foot finally stayed on" autocomplete="off"></label></div>
   <div class="sh-actions" style="margin-top:12px"><span class="sp"></span><button class="btn pri" data-act="clSave" data-id="${r?r.id:''}">${isNew?'Save to my journey':'Save'}</button></div>`);
   const d=$('#clDate');if(d)d.addEventListener('change',()=>{const w=$('#clWeek');if(w&&d.value){const n=weekOfDate(d.value);if(![...w.options].some(o=>+o.value===n))w.add(new Option('Week '+n,n));w.value=String(n)}});
-  if(isNew)setTimeout(()=>{const n=$('#clName');n&&n.focus()},300)}
+  const pv=$('#clPrev');if(pv){const f0=_pend&&_pend.blob;const tk=()=>{if(pv.currentTime>.25&&_pend&&_pend.blob===f0){if(!_pend.thumb){const t=grabFrame(pv);if(t)_pend.thumb=t}if(!_pend.dur&&isFinite(pv.duration))_pend.dur=pv.duration;pv.removeEventListener('timeupdate',tk)}};pv.addEventListener('timeupdate',tk);const pp=pv.play();if(pp&&pp.catch)pp.catch(()=>{})}}
 A.clSug=el=>{const n=$('#clName');if(n){n.value=el.dataset.t;Snd.play('tick')}};
 A.clLand=el=>{el.classList.toggle('on');el.setAttribute('aria-checked',el.classList.contains('on')?'true':'false');Snd.play('tick')};
-A.clSave=async el=>{const name=(($('#clName')||{}).value||'').trim();if(!name){toast('Name the trick','err');Snd.play('err');return}const date=($('#clDate')||{}).value||ymd(new Date());const pick=+(($('#clWeek')||{}).value||0)||null;const week=pick&&pick!==weekOfDate(date)?pick:null;const landed=!!(document.querySelector('#sheet .tog')||{classList:{contains:()=>false}}).classList.contains('on');const note=(($('#clNote')||{}).value||'').trim();
-  try{let r;if(el.dataset.id){r=await Clips.get(el.dataset.id);if(!r)return;Object.assign(r,{name,week,date,landed,note})}else{if(!_pend)return;r={id:uid(),name,week,date,landed,note,blob:_pend.blob,type:_pend.type,thumb:_pend.thumb,dur:_pend.dur,at:Date.now()};_pend=null}
-    await Clips.put(r);Clips.upsert(r);closeSheet(true);Snd.play(landed?'land':'done');toast(el.dataset.id?'Clip updated':`${name} saved`,'ok',`Week ${week||weekOfDate(date)}${landed?' · landed':''}`);if(!el.dataset.id&&navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});render();if(view.panel)renderPanel()}
-  catch(e){toast('Could not save that clip','err',e.name==='QuotaExceededError'?'Phone storage for the app is full':e.message||'')}};
+A.clSave=async el=>{if(el.dataset.busy)return;const name=(($('#clName')||{}).value||'').trim()||'Untitled trick';const date=($('#clDate')||{}).value||ymd(new Date());const pick=+(($('#clWeek')||{}).value||0)||null;const week=pick&&pick!==weekOfDate(date)?pick:null;const landed=!!(document.querySelector('#sheet .tog')||{classList:{contains:()=>false}}).classList.contains('on');const note=(($('#clNote')||{}).value||'').trim();
+  const isNew=!el.dataset.id;const label=el.textContent;let r;
+  try{if(!isNew){r=await Clips.get(el.dataset.id);if(!r)return;Object.assign(r,{name,week,date,landed,note})}else{if(!_pend){toast('Pick the video again','err');return}if(!_pend.thumb)_pend.thumb=grabFrame($('#clPrev'));r={id:uid(),name,week,date,landed,note,blob:_pend.blob,type:_pend.type,thumb:_pend.thumb,dur:_pend.dur,at:Date.now()}}
+    el.dataset.busy='1';el.textContent='Saving';
+    try{await Clips.put(r)}catch(e1){if(!isNew||e1.name==='QuotaExceededError')throw e1;/* some iPhones refuse the picker's file handle, store a plain copy instead */r.blob=new Blob([await r.blob.arrayBuffer()],{type:r.type});await Clips.put(r)}
+    if(isNew)_pend=null;Clips.upsert(r);closeSheet(true);Snd.play(landed?'land':'done');toast(isNew?`${name} saved`:'Clip updated','ok',`Week ${week||weekOfDate(date)}${landed?' · landed':''}`);if(isNew&&navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});render();if(view.panel)renderPanel()}
+  catch(e){delete el.dataset.busy;el.textContent=label;Snd.play('err');toast('Could not save that clip','err',e.name==='QuotaExceededError'?'Phone storage for the app is full':(e.message||e.name||'Try again'))}};
 A.clipView=async el=>{const r=await Clips.get(el.dataset.id).catch(()=>null);if(!r){toast('Clip not found on this phone','err');return}const url=URL.createObjectURL(r.blob);const name=clipName(r);const same=Clips.meta.filter(c=>norm(c.name)===norm(name));
   openSheet(`<div class="sh-h"><div class="sh-t">${esc(name)}</div><button class="sh-x" data-act="closeSheet">Close</button></div>
   <div class="chips" style="margin-bottom:10px"><span class="chip acc">Week ${r.week||weekOfDate(r.date)}</span><span class="chip">${fmtD(parseYmd(r.date))}</span>${r.landed?'<span class="chip ok">Landed</span>':'<span class="chip">Working on it</span>'}</div>
@@ -3341,7 +3355,7 @@ function eraPicker(){const cur=eraNow();return `<section><div class="lbl">Consol
 /* keep the store copy in step once save data loads */
 let _era0=0;{const _r=render;render=function(){_r();if(!_era0&&Store.ready){_era0=1;if(!S().era){S().era=lsGet('sq.era')||'ps1';saveS()}applyEra()}}}
 /* ================= PS3 extras: controller, rumble, screensaver, system menus, easter eggs ================= */
-const APP_VER='5.43';
+const APP_VER='5.44';
 Object.assign(IC,{
   pad:'<path d="M7.6 7h8.8a4.6 4.6 0 0 1 4.5 3.7l1 5.1a2.6 2.6 0 0 1-4.5 2.2L15.6 16H8.4l-1.8 2a2.6 2.6 0 0 1-4.5-2.2l1-5.1A4.6 4.6 0 0 1 7.6 7z"/><path d="M7.6 10.2v3M6.1 11.7h3"/><circle cx="15.6" cy="10.6" r=".5"/><circle cx="17.4" cy="12.6" r=".5"/>',
   wave:'<path d="M2.5 14.5c3-4 6.2-4 9.5 0s6.5 4 9.5 0"/><path d="M2.5 9.5c3-3 6.2-3 9.5 0s6.5 3 9.5 0" opacity=".55"/>',
